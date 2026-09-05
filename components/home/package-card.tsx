@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, MapPin } from "lucide-react"
+import { ArrowRight, MapPin, Sparkles } from "lucide-react"
 import type { TravelPackage } from "./packages"
 
 export function PackageCard({ pkg }: { pkg: TravelPackage }) {
@@ -25,13 +25,23 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
           {pkg.headline}
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{pkg.description}</p>
-        <Link
-          href={`/survey?package=${pkg.id}`}
-          className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
-        >
-          View package
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </Link>
+        <div className="mt-1 flex items-center justify-between gap-3">
+          <Link
+            href={`/survey?package=${pkg.id}`}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            View package
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/ai-chat"
+            aria-label={`Ask AI about ${pkg.headline}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-secondary transition-colors hover:border-secondary"
+          >
+            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            Ask AI
+          </Link>
+        </div>
       </div>
     </article>
   )
