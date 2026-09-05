@@ -20,7 +20,7 @@ export default function GeneratingPage() {
     const interval = setInterval(() => {
       setIndex((i) => Math.min(messages.length - 1, i + 1))
     }, 1100)
-    const redirect = setTimeout(() => router.push("/home"), 6000)
+    const redirect = setTimeout(() => router.push("/trip-plan"), 6000)
     return () => {
       clearInterval(interval)
       clearTimeout(redirect)
