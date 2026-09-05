@@ -7,6 +7,7 @@ import { tripPlan, dayTotal } from "@/components/trip-plan/data"
 import { TimelineItem } from "@/components/trip-plan/timeline-item"
 import { BudgetSummary } from "./budget-summary"
 import { BookedHotelCard, BookedGuideCard } from "./booked-cards"
+import { TripsSubNav } from "@/components/my-trips/trips-sub-nav"
 import { cn } from "@/lib/utils"
 
 const dayDates = ["12 Apr", "13 Apr", "14 Apr"]
@@ -24,6 +25,9 @@ export function MyTripPlanClient() {
         <p className="mt-0.5 text-sm text-muted-foreground">
           {destination} · 12 – 14 Apr 2026
         </p>
+        <div className="mt-3">
+          <TripsSubNav active="plan" />
+        </div>
       </header>
 
       <main className="flex flex-col gap-6 px-5 pb-32 pt-5">
