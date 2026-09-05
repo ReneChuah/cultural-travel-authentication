@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight, MapPin } from "lucide-react"
 import type { TravelPackage } from "./packages"
 
@@ -24,13 +25,13 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
           {pkg.headline}
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{pkg.description}</p>
-        <a
-          href={`#${pkg.id}`}
+        <Link
+          href={`/survey?package=${pkg.id}`}
           className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
           View package
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </a>
+        </Link>
       </div>
     </article>
   )

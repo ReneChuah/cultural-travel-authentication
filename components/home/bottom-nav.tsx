@@ -43,7 +43,7 @@ export function BottomNav() {
 
           {/* Floating action button rendered last so it paints above the nav bar */}
           <Link
-            href="/start-trip"
+            href="/survey"
             className="absolute -top-7 left-1/2 flex -translate-x-1/2 flex-col items-center"
           >
             <span className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-background bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
