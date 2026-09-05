@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils"
 
 const items = [
   { label: "Home", href: "/home", icon: Home, active: true },
-  { label: "My trips", href: "/trips", icon: Briefcase, active: false },
-  { label: "AI chat", href: "/chat", icon: MessageCircle, active: false },
+  { label: "My trips", href: "/my-trip-plan", icon: Briefcase, active: false },
+  { label: "AI chat", href: "/ai-chat", icon: MessageCircle, active: false },
   { label: "Profile", href: "/profile", icon: User, active: false },
 ]
 
