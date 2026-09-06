@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { InlineItinerary } from "./inline-itinerary"
 import type { ChatMessage } from "./data"
 
-export function MessageBubble({ message }: { message: ChatMessage }) {
+export function MessageBubble({ message, onApplyItinerary }: { message: ChatMessage; onApplyItinerary?: () => void }) {
   const isAI = message.role === "ai"
 
   return (
@@ -30,7 +30,7 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
             {message.text}
           </div>
         )}
-        {message.itinerary && <InlineItinerary card={message.itinerary} />}
+        {message.itinerary && <InlineItinerary card={message.itinerary} onApply={onApplyItinerary} />}
       </div>
     </div>
   )

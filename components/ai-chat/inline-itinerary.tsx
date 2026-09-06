@@ -1,4 +1,4 @@
-import { Landmark, Utensils, Camera, TreePine, Mountain, Coffee, Palette, type LucideIcon } from "lucide-react"
+import { Landmark, Utensils, Camera, TreePine, Mountain, Coffee, Palette, Check, type LucideIcon } from "lucide-react"
 import type { ActivityIcon } from "@/components/trip-plan/data"
 import type { ItineraryCard } from "./data"
 
@@ -12,7 +12,7 @@ const iconMap: Record<ActivityIcon, LucideIcon> = {
   craft: Palette,
 }
 
-export function InlineItinerary({ card }: { card: ItineraryCard }) {
+export function InlineItinerary({ card, onApply }: { card: ItineraryCard; onApply?: () => void }) {
   return (
     <div className="mt-2 overflow-hidden rounded-3xl border border-border bg-card">
       <div className="border-b border-border bg-accent/60 px-4 py-3">
@@ -44,6 +44,18 @@ export function InlineItinerary({ card }: { card: ItineraryCard }) {
           )
         })}
       </ul>
+      {onApply && (
+        <div className="border-t border-border px-4 py-3">
+          <button
+            type="button"
+            onClick={onApply}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            <Check className="h-4 w-4" aria-hidden="true" />
+            Apply to my itinerary
+          </button>
+        </div>
+      )}
     </div>
   )
 }
