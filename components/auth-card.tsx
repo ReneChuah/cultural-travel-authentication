@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Compass, Eye, EyeOff, Mail, Lock, User } from "lucide-react"
+import { Compass, Eye, EyeOff, Mail, Lock, User, Ticket } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Tab = "signup" | "login"
@@ -118,6 +118,24 @@ export function AuthCard() {
                 ))}
               </div>
             </fieldset>
+
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="signup-referral" className="text-xs font-medium text-muted-foreground">
+                Referral code (optional)
+              </label>
+              <div className="relative">
+                <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/60">
+                  <Ticket className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <input
+                  id="signup-referral"
+                  type="text"
+                  autoComplete="off"
+                  placeholder="Enter code if you have one"
+                  className="w-full rounded-xl border border-border/60 bg-background py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
+                />
+              </div>
+            </div>
 
             <button type="submit" className={cn(primaryButtonClass, "mt-2")}>
               Create account
