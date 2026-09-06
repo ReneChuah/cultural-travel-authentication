@@ -4,7 +4,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { initialSurveyData, type SurveyData } from "./data"
+import { countries, extraCountries, initialSurveyData, type SurveyData } from "./data"
+import { saveTripSelection } from "../trip-selection"
 import { StepDestination } from "./steps/step-destination"
 import { StepTravelers } from "./steps/step-travelers"
 import { StepHealth } from "./steps/step-health"
@@ -37,9 +38,30 @@ export function SurveyWizard() {
     }
   })()
 
+  function persistSelection() {
+    const country = [...countries, ...extraCountries].find((c) => c.id === data.destinationCountry)
+    const hasRegion = data.destinationRegion && data.destinationRegion !== "Current location"
+    const destinationName = hasRegion
+      ? (data.destinationRegion as string)
+      : (country?.name ?? "your destination")
+    const travelers =
+      data.party === "solo" ? 1 : data.counts.adults + data.counts.children + data.counts.elderly
+    const pace = data.pace === "slow" ? "Relaxed" : data.pace === "fast" ? "Fast-paced" : null
+
+    saveTripSelection({
+      destinationName,
+      regionName: hasRegion ? (data.destinationRegion as string) : null,
+      budget: data.budget || 0,
+      guide: data.guide,
+      travelers: Math.max(1, travelers),
+      pace,
+    })
+  }
+
   function handleContinue() {
     if (!canContinue) return
     if (step === TOTAL_STEPS - 1) {
+      persistSelection()
       router.push("/generating")
       return
     }

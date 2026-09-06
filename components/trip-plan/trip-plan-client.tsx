@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation"
 import { ArrowLeft, RotateCcw, Check, Loader2 } from "lucide-react"
 import { tripPlan, shuffle, type Hotel, type TripDay } from "./data"
 import { DayCard } from "./day-card"
+import { useTripSelection } from "@/components/trip-selection"
 
 const THRESHOLD = 110
 
 export function TripPlanClient() {
   const router = useRouter()
+  const selection = useTripSelection()
   const [activeDay, setActiveDay] = useState(0)
   const [days, setDays] = useState<TripDay[]>(tripPlan.days)
   const [hotels, setHotels] = useState<Hotel[]>(tripPlan.hotels)
@@ -111,9 +113,16 @@ export function TripPlanClient() {
             >
               <ArrowLeft className="h-5 w-5" aria-hidden="true" />
             </button>
-            <h1 className="font-serif text-lg font-semibold text-foreground">
-              Your trip to {tripPlan.destination}
-            </h1>
+            <div className="min-w-0">
+              <h1 className="truncate font-serif text-lg font-semibold text-foreground">
+                Your trip to {selection.destinationName}
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                {tripPlan.currency}
+                {selection.budget.toLocaleString()} budget
+                {selection.guide ? " · Guide included" : ""}
+              </p>
+            </div>
           </div>
 
           <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-3">

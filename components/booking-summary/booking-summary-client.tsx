@@ -18,9 +18,9 @@ import {
   Users,
 } from "lucide-react"
 import { tripPlan } from "@/components/trip-plan/data"
+import { useTripSelection } from "@/components/trip-selection"
 
 const NIGHTS = 2
-const TRAVELERS = 2
 const DATES = "12 – 14 Apr 2026"
 
 type Flight = {
@@ -60,7 +60,8 @@ function money(currency: string, amount: number) {
 
 export function BookingSummaryClient() {
   const router = useRouter()
-  const { currency, destination, guideRequested, days } = tripPlan
+  const selection = useTripSelection()
+  const { currency, guideRequested, days } = tripPlan
   const hotel = tripPlan.hotels[0]
   const guide = tripPlan.guide
 
@@ -115,7 +116,7 @@ export function BookingSummaryClient() {
             <div className="relative h-32 w-full">
               <Image
                 src={days[0].cover || "/placeholder.svg"}
-                alt={`${destination} trip`}
+                alt={`${selection.destinationName} trip`}
                 fill
                 sizes="(max-width: 512px) 100vw, 512px"
                 className="object-cover"
@@ -124,7 +125,7 @@ export function BookingSummaryClient() {
               <div className="absolute bottom-3 left-4 right-4 text-background">
                 <div className="flex items-center gap-1.5 text-sm font-medium">
                   <MapPin className="h-4 w-4" aria-hidden="true" />
-                  {destination}, Japan
+                  {selection.destinationName}
                 </div>
                 <p className="text-xs opacity-90">{DATES}</p>
               </div>
@@ -132,7 +133,7 @@ export function BookingSummaryClient() {
             <dl className="grid grid-cols-3 divide-x divide-border border-t border-border">
               <SummaryStat icon={<CalendarDays className="h-4 w-4" />} label="Duration" value={`${days.length} days`} />
               <SummaryStat icon={<Clock3 className="h-4 w-4" />} label="Nights" value={`${NIGHTS} nights`} />
-              <SummaryStat icon={<Users className="h-4 w-4" />} label="Travelers" value={`${TRAVELERS}`} />
+              <SummaryStat icon={<Users className="h-4 w-4" />} label="Travelers" value={`${selection.travelers}`} />
             </dl>
             <div className="flex flex-wrap gap-2 border-t border-border px-4 py-3">
               <StylePill icon={<Gauge className="h-3.5 w-3.5" />} label="Relaxed pace" />
@@ -242,6 +243,9 @@ export function BookingSummaryClient() {
                 <span className="text-base font-semibold text-foreground">Total</span>
                 <span className="text-xl font-semibold text-primary">{money(currency, total)}</span>
               </div>
+              <p className="mt-2 text-right text-xs text-muted-foreground">
+                Your budget target: {money(currency, selection.budget)}
+              </p>
             </div>
           </Section>
 

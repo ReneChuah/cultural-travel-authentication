@@ -25,7 +25,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      <BottomNav />
+      <BottomNav active="home" showFab />
     </div>
   )
 }

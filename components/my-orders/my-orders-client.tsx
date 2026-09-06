@@ -5,6 +5,7 @@ import Link from "next/link"
 import { PackageOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { TripsSubNav } from "@/components/my-trips/trips-sub-nav"
+import { BottomNav } from "@/components/home/bottom-nav"
 import { OrderCard } from "./order-card"
 import { ReceiptDetail } from "./receipt-detail"
 import { upcomingOrders, pastOrders, type Order } from "./data"
@@ -71,6 +72,8 @@ export function MyOrdersClient() {
           </ul>
         )}
       </main>
+
+      <BottomNav active="trips" />
     </div>
   )
 }

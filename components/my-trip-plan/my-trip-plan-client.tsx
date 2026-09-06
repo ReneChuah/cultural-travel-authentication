@@ -8,13 +8,16 @@ import { TimelineItem } from "@/components/trip-plan/timeline-item"
 import { BudgetSummary } from "./budget-summary"
 import { BookedHotelCard, BookedGuideCard } from "./booked-cards"
 import { TripsSubNav } from "@/components/my-trips/trips-sub-nav"
+import { BottomNav } from "@/components/home/bottom-nav"
+import { useTripSelection } from "@/components/trip-selection"
 import { cn } from "@/lib/utils"
 
 const dayDates = ["12 Apr", "13 Apr", "14 Apr"]
 
 export function MyTripPlanClient() {
   const [activeDay, setActiveDay] = useState(0)
-  const { currency, days, hotels, guide, guideRequested, destination } = tripPlan
+  const selection = useTripSelection()
+  const { currency, days, hotels, guide, guideRequested } = tripPlan
   const day = days[activeDay]
   const confirmedHotel = hotels[0]
 
@@ -23,14 +26,14 @@ export function MyTripPlanClient() {
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 px-5 py-4 backdrop-blur">
         <h1 className="font-serif text-xl font-semibold text-foreground">My trip plan</h1>
         <p className="mt-0.5 text-sm text-muted-foreground">
-          {destination} · 12 – 14 Apr 2026
+          {selection.destinationName} · 12 – 14 Apr 2026
         </p>
         <div className="mt-3">
           <TripsSubNav active="plan" />
         </div>
       </header>
 
-      <main className="flex flex-col gap-6 px-5 pb-32 pt-5">
+      <main className="flex flex-col gap-6 px-5 pb-40 pt-5">
         <BudgetSummary currency={currency} />
 
         <div>
@@ -112,17 +115,20 @@ export function MyTripPlanClient() {
         </section>
       </main>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
-        <div className="mx-auto flex max-w-lg justify-end px-5 pb-6">
+      {/* Ask AI floats above the fixed bottom nav */}
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40">
+        <div className="mx-auto flex max-w-lg justify-end px-5 pb-24">
           <Link
             href="/ai-chat"
-            className="pointer-events-auto flex items-center gap-2 rounded-full bg-primary px-5 py-3.5 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="pointer-events-auto flex items-center gap-2 rounded-full bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-none transition-colors hover:bg-primary/90"
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
             Ask AI
           </Link>
         </div>
       </div>
+
+      <BottomNav active="trips" />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
+import { BottomNav } from "@/components/home/bottom-nav"
 import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
 
 export function AiChatClient() {
@@ -112,6 +113,8 @@ export function AiChatClient() {
           </button>
         </form>
       </div>
+
+      <BottomNav active="chat" variant="static" />
     </div>
   )
 }
