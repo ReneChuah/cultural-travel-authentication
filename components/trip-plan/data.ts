@@ -14,6 +14,8 @@ export type Activity = {
   icon: ActivityIcon
   thumb: string
   cost: number
+  lat: number
+  lng: number
 }
 
 export type Hotel = {
@@ -62,9 +64,9 @@ export const tripPlan: TripPlan = {
       cover: "/trip/day1-cover.png",
       warning: "1.5km of stone steps at Fushimi Inari — tap to swap for the shorter lower loop",
       activities: [
-        { id: "fushimi", time: "08:30", name: "Fushimi Inari shrine walk", icon: "landmark", thumb: "/trip/act-fushimi.png", cost: 0 },
-        { id: "nishiki", time: "11:30", name: "Nishiki Market brunch", icon: "food", thumb: "/trip/act-nishiki.png", cost: 45 },
-        { id: "kiyomizu", time: "15:00", name: "Kiyomizu-dera temple", icon: "camera", thumb: "/trip/act-kiyomizu.png", cost: 20 },
+        { id: "fushimi", time: "08:30", name: "Fushimi Inari shrine walk", icon: "landmark", thumb: "/trip/act-fushimi.png", cost: 0, lat: 34.9671, lng: 135.7727 },
+        { id: "nishiki", time: "11:30", name: "Nishiki Market brunch", icon: "food", thumb: "/trip/act-nishiki.png", cost: 45, lat: 35.005, lng: 135.7649 },
+        { id: "kiyomizu", time: "15:00", name: "Kiyomizu-dera temple", icon: "camera", thumb: "/trip/act-kiyomizu.png", cost: 20, lat: 34.9949, lng: 135.785 },
       ],
     },
     {
@@ -74,9 +76,9 @@ export const tripPlan: TripPlan = {
       cover: "/trip/day2-cover.png",
       warning: "2km uphill to the monkey park — tap to swap for a tram",
       activities: [
-        { id: "bamboo", time: "09:00", name: "Arashiyama bamboo grove", icon: "nature", thumb: "/trip/act-bamboo.png", cost: 0 },
-        { id: "monkey", time: "11:00", name: "Iwatayama hilltop viewpoint", icon: "view", thumb: "/trip/act-monkey.png", cost: 25 },
-        { id: "river", time: "14:00", name: "Riverside kaiseki lunch", icon: "food", thumb: "/trip/act-river.png", cost: 60 },
+        { id: "bamboo", time: "09:00", name: "Arashiyama bamboo grove", icon: "nature", thumb: "/trip/act-bamboo.png", cost: 0, lat: 35.017, lng: 135.671 },
+        { id: "monkey", time: "11:00", name: "Iwatayama hilltop viewpoint", icon: "view", thumb: "/trip/act-monkey.png", cost: 25, lat: 35.0114, lng: 135.6773 },
+        { id: "river", time: "14:00", name: "Riverside kaiseki lunch", icon: "food", thumb: "/trip/act-river.png", cost: 60, lat: 35.013, lng: 135.677 },
       ],
     },
     {
@@ -85,9 +87,9 @@ export const tripPlan: TripPlan = {
       theme: "Food & Craft",
       cover: "/trip/day3-cover.png",
       activities: [
-        { id: "tea", time: "10:00", name: "Traditional tea ceremony", icon: "tea", thumb: "/trip/act-tea.png", cost: 80 },
-        { id: "ramen", time: "13:00", name: "Ramen tasting tour", icon: "food", thumb: "/trip/act-ramen.png", cost: 40 },
-        { id: "pottery", time: "16:00", name: "Kiyomizu pottery workshop", icon: "craft", thumb: "/trip/act-pottery.png", cost: 120 },
+        { id: "tea", time: "10:00", name: "Traditional tea ceremony", icon: "tea", thumb: "/trip/act-tea.png", cost: 80, lat: 35.0116, lng: 135.7681 },
+        { id: "ramen", time: "13:00", name: "Ramen tasting tour", icon: "food", thumb: "/trip/act-ramen.png", cost: 40, lat: 34.9858, lng: 135.7588 },
+        { id: "pottery", time: "16:00", name: "Kiyomizu pottery workshop", icon: "craft", thumb: "/trip/act-pottery.png", cost: 120, lat: 34.9959, lng: 135.781 },
       ],
     },
   ],

@@ -16,10 +16,12 @@ export function TimelineItem({
   activity,
   currency,
   isLast,
+  onThumbClick,
 }: {
   activity: Activity
   currency: string
   isLast: boolean
+  onThumbClick?: () => void
 }) {
   const Icon = iconMap[activity.icon]
 
@@ -38,15 +40,32 @@ export function TimelineItem({
           <p className="mt-0.5 font-medium leading-snug text-foreground text-pretty">{activity.name}</p>
         </div>
 
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl">
-          <Image
-            src={activity.thumb || "/placeholder.svg"}
-            alt={activity.name}
-            fill
-            sizes="56px"
-            className="object-cover"
-          />
-        </div>
+        {onThumbClick ? (
+          <button
+            type="button"
+            onClick={onThumbClick}
+            aria-label={`View ${activity.name} on the map`}
+            className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl outline-none ring-offset-2 ring-offset-card transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+          >
+            <Image
+              src={activity.thumb || "/placeholder.svg"}
+              alt={activity.name}
+              fill
+              sizes="56px"
+              className="object-cover"
+            />
+          </button>
+        ) : (
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl">
+            <Image
+              src={activity.thumb || "/placeholder.svg"}
+              alt={activity.name}
+              fill
+              sizes="56px"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <span className="shrink-0 rounded-full bg-secondary/10 px-2.5 py-1 text-xs font-semibold text-secondary">
           {activity.cost === 0 ? "Free" : `~${currency}${activity.cost}`}

@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
-import { BedDouble, MessageCircle, Wallet } from "lucide-react"
-import { tripPlan, dayTotal } from "@/components/trip-plan/data"
+import { BedDouble, Wallet } from "lucide-react"
+import { tripPlan, dayTotal, type Activity } from "@/components/trip-plan/data"
 import { TimelineItem } from "@/components/trip-plan/timeline-item"
 import { BudgetSummary } from "./budget-summary"
 import { BookedHotelCard, BookedGuideCard } from "./booked-cards"
+import { AiBubble } from "./ai-bubble"
+import { MapModal } from "./map-modal"
 import { TripsSubNav } from "@/components/my-trips/trips-sub-nav"
 import { BottomNav } from "@/components/home/bottom-nav"
 import { useTripSelection } from "@/components/trip-selection"
@@ -16,6 +17,7 @@ const dayDates = ["12 Apr", "13 Apr", "14 Apr"]
 
 export function MyTripPlanClient() {
   const [activeDay, setActiveDay] = useState(0)
+  const [mapActivity, setMapActivity] = useState<Activity | null>(null)
   const selection = useTripSelection()
   const { currency, days, hotels, guide, guideRequested } = tripPlan
   const day = days[activeDay]
@@ -83,6 +85,7 @@ export function MyTripPlanClient() {
                 activity={activity}
                 currency={currency}
                 isLast={i === day.activities.length - 1}
+                onThumbClick={() => setMapActivity(activity)}
               />
             ))}
           </ol>
@@ -115,18 +118,17 @@ export function MyTripPlanClient() {
         </section>
       </main>
 
-      {/* Ask AI floats above the fixed bottom nav */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40">
-        <div className="mx-auto flex max-w-lg justify-end px-5 pb-24">
-          <Link
-            href="/ai-chat"
-            className="pointer-events-auto flex items-center gap-2 rounded-full bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-none transition-colors hover:bg-primary/90"
-          >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" />
-            Ask AI
-          </Link>
-        </div>
-      </div>
+      {/* Draggable AI bubble — tap to open chat, drag to reposition */}
+      <AiBubble />
+
+      {mapActivity && (
+        <MapModal
+          name={mapActivity.name}
+          lat={mapActivity.lat}
+          lng={mapActivity.lng}
+          onClose={() => setMapActivity(null)}
+        />
+      )}
 
       <BottomNav active="trips" />
     </div>
