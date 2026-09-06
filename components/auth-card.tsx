@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Compass, Eye, EyeOff, Mail, Lock, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -14,6 +15,7 @@ const genderOptions: { value: Gender; label: string }[] = [
 ]
 
 export function AuthCard() {
+  const router = useRouter()
   const [tab, setTab] = useState<Tab>("signup")
   const [showPassword, setShowPassword] = useState(false)
   const [gender, setGender] = useState<Gender>("unspecified")
@@ -51,7 +53,10 @@ export function AuthCard() {
             id="signup-panel"
             role="tabpanel"
             className="flex flex-col gap-5"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault()
+              router.push("/home")
+            }}
           >
             <Field label="Gmail" htmlFor="signup-email" icon={<Mail className="h-5 w-5" aria-hidden="true" />}>
               <input
@@ -134,7 +139,10 @@ export function AuthCard() {
             id="login-panel"
             role="tabpanel"
             className="flex flex-col gap-5"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault()
+              router.push("/home")
+            }}
           >
             <Field label="Gmail" htmlFor="login-email" icon={<Mail className="h-5 w-5" aria-hidden="true" />}>
               <input
