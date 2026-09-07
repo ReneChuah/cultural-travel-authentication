@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export async function POST(req: Request) {
   const { message, userProfile, tripContext } = await req.json();
 
-  const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const prompt = `You are a travel concierge AI for a cultural festival
 travel app. User profile: ${JSON.stringify(userProfile)}.

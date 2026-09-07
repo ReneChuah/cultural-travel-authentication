@@ -6,6 +6,8 @@ import { ArrowLeft, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
 import { BottomNav } from "@/components/home/bottom-nav"
 import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
+import { useTripSelection } from "@/components/trip-selection"
+import { tripPlan } from "@/components/trip-plan/data" 
 
 export function AiChatClient() {
   const router = useRouter()
@@ -14,6 +16,7 @@ export function AiChatClient() {
   const [composing, setComposing] = useState(false)
   const [sending, setSending] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
+  const tripSelection = useTripSelection()
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -35,7 +38,7 @@ export function AiChatClient() {
         body: JSON.stringify({
           message: trimmed,
           userProfile: tripSelection,
-          tripContext: mockTripPlan,
+          tripContext: tripPlan,
         }),
       })
 
