@@ -14,6 +14,7 @@ import {
   MapPin,
   Plane,
   Star,
+  Tag,
   UserCheck,
   Users,
 } from "lucide-react"
@@ -72,7 +73,34 @@ export function BookingSummaryClient() {
     (sum, d) => sum + d.activities.reduce((s, a) => s + a.cost, 0),
     0,
   )
-  const total = flightsTotal + hotelTotal + guideTotal + activitiesTotal
+  const subtotal = flightsTotal + hotelTotal + guideTotal + activitiesTotal
+
+  const [promoDraft, setPromoDraft] = useState("")
+  const [promo, setPromo] = useState<{ code: string; discount: number } | null>(null)
+  const [promoError, setPromoError] = useState("")
+
+  // Mock promo codes recognized in this demo
+  const promoCodes: Record<string, number> = {
+    WANDER50: 50,
+    KYOTO100: 100,
+    FIRSTTRIP: 200,
+  }
+
+  function applyPromo() {
+    const code = promoDraft.trim().toUpperCase()
+    if (!code) return
+    const discount = promoCodes[code]
+    if (discount) {
+      setPromo({ code, discount })
+      setPromoError("")
+    } else {
+      setPromo(null)
+      setPromoError("That code isn't valid. Try WANDER50.")
+    }
+  }
+
+  const discount = promo?.discount ?? 0
+  const total = Math.max(0, subtotal - discount)
 
   const [card, setCard] = useState("")
   const [expiry, setExpiry] = useState("")
@@ -230,6 +258,52 @@ export function BookingSummaryClient() {
             </Section>
           )}
 
+          {/* Promo code */}
+          <Section title="Promo code">
+            <div className="rounded-3xl border border-border bg-background p-4">
+              <div className="flex items-stretch gap-2">
+                <div className="relative flex-1">
+                  <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70">
+                    <Tag className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <input
+                    id="promo"
+                    type="text"
+                    autoComplete="off"
+                    placeholder="Enter promo code"
+                    value={promoDraft}
+                    onChange={(e) => {
+                      setPromoDraft(e.target.value)
+                      if (promoError) setPromoError("")
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.nativeEvent.isComposing && e.keyCode !== 229) {
+                        e.preventDefault()
+                        applyPromo()
+                      }
+                    }}
+                    className="w-full rounded-xl border border-border bg-background py-3 pl-10 pr-4 uppercase text-foreground outline-none transition-colors placeholder:normal-case placeholder:text-muted-foreground/60 focus:border-primary"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={applyPromo}
+                  disabled={!promoDraft.trim()}
+                  className="shrink-0 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Apply
+                </button>
+              </div>
+              {promo && (
+                <p className="mt-2 flex items-center gap-1.5 text-sm font-medium text-success">
+                  <Tag className="h-3.5 w-3.5" aria-hidden="true" />
+                  Code {promo.code} applied — you saved {money(currency, promo.discount)}
+                </p>
+              )}
+              {promoError && <p className="mt-2 text-sm text-destructive">{promoError}</p>}
+            </div>
+          </Section>
+
           {/* Price breakdown */}
           <Section title="Price breakdown">
             <div className="rounded-3xl border border-border bg-background p-5">
@@ -238,6 +312,12 @@ export function BookingSummaryClient() {
                 <LineItem label={`Hotel · ${NIGHTS} nights`} value={money(currency, hotelTotal)} />
                 {guideRequested && <LineItem label={`Guide · ${days.length} days`} value={money(currency, guideTotal)} />}
                 <LineItem label="Activities estimate" value={money(currency, activitiesTotal)} />
+                {promo && (
+                  <div className="flex items-center justify-between text-sm">
+                    <dt className="font-medium text-success">Promo discount ({promo.code})</dt>
+                    <dd className="font-semibold text-success">-{money(currency, promo.discount)}</dd>
+                  </div>
+                )}
               </dl>
               <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
                 <span className="text-base font-semibold text-foreground">Total</span>
