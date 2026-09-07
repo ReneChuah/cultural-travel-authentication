@@ -1,11 +1,9 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 
 export async function POST(req: Request) {
   const { message, userProfile, tripContext } = await req.json();
-
-  const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
   const prompt = `You are a travel concierge AI for a cultural festival
   travel app. User profile: ${JSON.stringify(userProfile)}.
@@ -18,8 +16,10 @@ export async function POST(req: Request) {
   followed by what to search for. Otherwise just answer helpfully and
   warmly, staying in character as a knowledgeable local concierge.`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  const result = await ai.models.generateContent({
+    model: "gemini-3.5-flash",
+    contents: prompt,
+  });
 
-  return Response.json({ reply: text });
+  return Response.json({ reply: result.text });
 }
