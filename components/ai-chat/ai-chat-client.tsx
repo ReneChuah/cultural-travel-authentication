@@ -6,14 +6,21 @@ import { ArrowLeft, Check, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
 import { BottomNav } from "@/components/home/bottom-nav"
 import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
+import { useTripSelection } from "@/components/trip-selection"
+import { tripPlan } from "@/components/trip-plan/data" 
 
 export function AiChatClient() {
   const router = useRouter()
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages)
   const [draft, setDraft] = useState("")
   const [composing, setComposing] = useState(false)
+<<<<<<< HEAD
   const [showToast, setShowToast] = useState(false)
+=======
+  const [sending, setSending] = useState(false)
+>>>>>>> 7d9de8866432a9b7dfcaf668413a4b7ef4048a78
   const endRef = useRef<HTMLDivElement>(null)
+  const tripSelection = useTripSelection()
 
   function applyItinerary() {
     setShowToast(true)
@@ -24,15 +31,48 @@ export function AiChatClient() {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  function send(text: string) {
+  async function send(text: string) {
     const trimmed = text.trim()
-    if (!trimmed) return
+    if (!trimmed || sending) return
+
     const userMsg: ChatMessage = { id: `u-${Date.now()}`, role: "user", text: trimmed }
     setMessages((prev) => [...prev, userMsg])
     setDraft("")
-    const reply = replyFor(trimmed)
-    setTimeout(() => setMessages((prev) => [...prev, reply]), 600)
+    setSending(true)
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: trimmed,
+          userProfile: tripSelection,
+          tripContext: tripPlan,
+        }),
+      })
+
+      if (!res.ok) throw new Error(`API returned ${res.status}`)
+
+      const data = await res.json()
+      setMessages((prev) => [
+        ...prev,
+        { id: `ai-${Date.now()}`, role: "ai", text: data.reply },
+      ])
+    } catch (err) {
+      console.error(err)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `ai-err-${Date.now()}`,
+          role: "ai",
+          text: "Sorry, I'm having trouble connecting right now — try again in a moment.",
+        },
+      ])
+    } finally {
+      setSending(false)
+    }
   }
+
 
   return (
     <div className="mx-auto flex h-dvh w-full max-w-lg flex-col bg-background">
@@ -66,6 +106,13 @@ export function AiChatClient() {
               onApplyItinerary={m.role === "ai" && m.itinerary ? applyItinerary : undefined}
             />
           ))}
+          {sending && (
+            <div className="flex items-center gap-1 text-muted-foreground text-sm">
+              <span className="animate-pulse">●</span>
+              <span className="animate-pulse [animation-delay:150ms]">●</span>
+              <span className="animate-pulse [animation-delay:300ms]">●</span>
+            </div>
+          )}
           <div ref={endRef} />
         </div>
       </main>
