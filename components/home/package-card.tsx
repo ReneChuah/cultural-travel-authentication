@@ -27,7 +27,7 @@ export function PackageCard({ pkg }: { pkg: TravelPackage }) {
         <p className="text-sm leading-relaxed text-muted-foreground text-pretty">{pkg.description}</p>
         <div className="mt-1 flex items-center justify-between gap-3">
           <Link
-            href={`/survey?package=${pkg.id}`}
+            href="/package-detail"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
           >
             View package

@@ -17,25 +17,25 @@ const slides: Slide[] = [
     id: "jaipur",
     image: "/banners/lantern.png",
     headline: "Diwali in Jaipur: lantern-lit palaces",
-    href: "/survey?package=jaipur",
+    href: "/package-detail",
   },
   {
     id: "rio",
     image: "/banners/carnival.png",
     headline: "Post-Carnival Rio: beaches half empty",
-    href: "/survey?package=rio",
+    href: "/package-detail",
   },
   {
     id: "kyoto",
     image: "/banners/temple.png",
     headline: "Kyoto temple festivals, half price",
-    href: "/survey?package=kyoto",
+    href: "/package-detail",
   },
   {
     id: "paris",
     image: "/banners/market.png",
     headline: "Autumn markets across France",
-    href: "/survey?package=paris",
+    href: "/package-detail",
   },
 ]
 
