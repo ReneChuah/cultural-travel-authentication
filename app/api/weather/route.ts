@@ -6,6 +6,7 @@ export async function GET(req: Request) {
     return Response.json({ error: "Missing location" }, { status: 400 })
   }
 
+  // 第一步：把地名转成经纬度（Open-Meteo 自己就有免费的地理编码接口）
   const geoRes = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location)}&count=1`
   )
@@ -17,6 +18,7 @@ export async function GET(req: Request) {
 
   const { latitude, longitude, name } = geoData.results[0]
 
+  // 第二步：拿经纬度去查天气
   const weatherRes = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,precipitation,weather_code`
   )

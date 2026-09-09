@@ -2,27 +2,21 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, Check, Compass, Plus, Send } from "lucide-react"
+import { ArrowLeft, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
 import { BottomNav } from "@/components/home/bottom-nav"
-import { useTripSelection } from "@/components/trip-selection"
-import { tripPlan } from "@/components/trip-plan/data"
 import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
+import { useTripSelection } from "@/components/trip-selection"
+import { tripPlan } from "@/components/trip-plan/data" 
 
 export function AiChatClient() {
   const router = useRouter()
-  const tripSelection = useTripSelection()
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages)
   const [draft, setDraft] = useState("")
   const [composing, setComposing] = useState(false)
   const [sending, setSending] = useState(false)
-  const [showToast, setShowToast] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
-
-  function applyItinerary() {
-    setShowToast(true)
-    setTimeout(() => router.push("/my-trip-plan"), 1100)
-  }
+  const tripSelection = useTripSelection()
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -31,6 +25,7 @@ export function AiChatClient() {
   async function send(text: string) {
     const trimmed = text.trim()
     if (!trimmed || sending) return
+
     const userMsg: ChatMessage = { id: `u-${Date.now()}`, role: "user", text: trimmed }
     setMessages((prev) => [...prev, userMsg])
     setDraft("")
@@ -49,13 +44,14 @@ export function AiChatClient() {
       if (!res.ok) throw new Error(`API returned ${res.status}`)
       const data = await res.json()
 
-      let finalReply = (data.reply as string | undefined) ?? replyFor(trimmed).text ?? ""
+      let finalReply = data.reply
 
       if (finalReply.startsWith("NEEDS_DATA:weather")) {
         const query = finalReply.replace("NEEDS_DATA:weather", "").trim()
         const weatherRes = await fetch(`/api/weather?location=${encodeURIComponent(query)}`)
         const weatherData = await weatherRes.json()
 
+  
         const followUp = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -91,10 +87,20 @@ export function AiChatClient() {
         finalReply = followUpData.reply
       }
 
-      setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, role: "ai", text: finalReply }])
-    } catch {
-      // AI backend not reachable in this environment — use the local concierge reply
-      setMessages((prev) => [...prev, replyFor(trimmed)])
+      setMessages((prev) => [
+        ...prev,
+        { id: `ai-${Date.now()}`, role: "ai", text: finalReply },
+      ])
+    } catch (err) {
+      console.error(err)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `ai-err-${Date.now()}`,
+          role: "ai",
+          text: "Sorry, I'm having trouble connecting right now — try again in a moment.",
+        },
+      ])
     } finally {
       setSending(false)
     }
@@ -126,12 +132,15 @@ export function AiChatClient() {
       <main className="flex-1 overflow-y-auto px-4 py-5">
         <div className="flex flex-col gap-5">
           {messages.map((m) => (
-            <MessageBubble
-              key={m.id}
-              message={m}
-              onApplyItinerary={m.role === "ai" && m.itinerary ? applyItinerary : undefined}
-            />
+            <MessageBubble key={m.id} message={m} />
           ))}
+          {sending && (
+            <div className="flex items-center gap-1 text-muted-foreground text-sm">
+              <span className="animate-pulse">●</span>
+              <span className="animate-pulse [animation-delay:150ms]">●</span>
+              <span className="animate-pulse [animation-delay:300ms]">●</span>
+            </div>
+          )}
           <div ref={endRef} />
         </div>
       </main>
@@ -182,26 +191,13 @@ export function AiChatClient() {
           <button
             type="submit"
             aria-label="Send message"
-            disabled={!draft.trim() || sending}
+            disabled={!draft.trim()}
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40"
           >
             <Send className="h-5 w-5" aria-hidden="true" />
           </button>
         </form>
       </div>
-
-      {showToast && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex justify-center px-4"
-        >
-          <div className="flex items-center gap-2 rounded-full bg-foreground px-4 py-2.5 text-sm font-semibold text-background">
-            <Check className="h-4 w-4 text-success" aria-hidden="true" />
-            Itinerary updated
-          </div>
-        </div>
-      )}
 
       <BottomNav active="chat" variant="static" />
     </div>
