@@ -5,13 +5,17 @@ import { useRouter } from "next/navigation"
 import { ArrowLeft, Check, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
 import { BottomNav } from "@/components/home/bottom-nav"
+import { useTripSelection } from "@/components/trip-selection"
+import { tripPlan } from "@/components/trip-plan/data"
 import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
 
 export function AiChatClient() {
   const router = useRouter()
+  const tripSelection = useTripSelection()
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages)
   const [draft, setDraft] = useState("")
   const [composing, setComposing] = useState(false)
+  const [sending, setSending] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
 
@@ -24,14 +28,76 @@ export function AiChatClient() {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  function send(text: string) {
+  async function send(text: string) {
     const trimmed = text.trim()
-    if (!trimmed) return
+    if (!trimmed || sending) return
     const userMsg: ChatMessage = { id: `u-${Date.now()}`, role: "user", text: trimmed }
     setMessages((prev) => [...prev, userMsg])
     setDraft("")
-    const reply = replyFor(trimmed)
-    setTimeout(() => setMessages((prev) => [...prev, reply]), 600)
+    setSending(true)
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: trimmed,
+          userProfile: tripSelection,
+          tripContext: tripPlan,
+        }),
+      })
+      if (!res.ok) throw new Error(`API returned ${res.status}`)
+      const data = await res.json()
+
+      let finalReply = (data.reply as string | undefined) ?? replyFor(trimmed).text ?? ""
+
+      if (finalReply.startsWith("NEEDS_DATA:weather")) {
+        const query = finalReply.replace("NEEDS_DATA:weather", "").trim()
+        const weatherRes = await fetch(`/api/weather?location=${encodeURIComponent(query)}`)
+        const weatherData = await weatherRes.json()
+
+        const followUp = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: `Here is the real weather data: ${JSON.stringify(weatherData)}. Now answer the user's original question: "${trimmed}"`,
+            userProfile: tripSelection,
+            tripContext: tripPlan,
+          }),
+        })
+        const followUpData = await followUp.json()
+        finalReply = followUpData.reply
+      }
+
+      if (finalReply.startsWith("NEEDS_DATA:places")) {
+        const query = finalReply.replace("NEEDS_DATA:places", "").trim()
+        const placesRes = await fetch(`/api/places`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        })
+        const placesData = await placesRes.json()
+
+        const followUp = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: `Here is real nearby place data: ${JSON.stringify(placesData)}. Now answer the user's original question: "${trimmed}"`,
+            userProfile: tripSelection,
+            tripContext: tripPlan,
+          }),
+        })
+        const followUpData = await followUp.json()
+        finalReply = followUpData.reply
+      }
+
+      setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, role: "ai", text: finalReply }])
+    } catch {
+      // AI backend not reachable in this environment — use the local concierge reply
+      setMessages((prev) => [...prev, replyFor(trimmed)])
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -116,7 +182,7 @@ export function AiChatClient() {
           <button
             type="submit"
             aria-label="Send message"
-            disabled={!draft.trim()}
+            disabled={!draft.trim() || sending}
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40"
           >
             <Send className="h-5 w-5" aria-hidden="true" />
