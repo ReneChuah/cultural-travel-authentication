@@ -41,13 +41,55 @@ export function AiChatClient() {
           tripContext: tripPlan,
         }),
       })
-
       if (!res.ok) throw new Error(`API returned ${res.status}`)
-
       const data = await res.json()
+
+      let finalReply = data.reply
+
+      if (finalReply.startsWith("NEEDS_DATA:weather")) {
+        const query = finalReply.replace("NEEDS_DATA:weather", "").trim()
+        const weatherRes = await fetch(`/api/weather?location=${encodeURIComponent(query)}`)
+        const weatherData = await weatherRes.json()
+
+  
+        const followUp = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: `Here is the real weather data: ${JSON.stringify(weatherData)}. Now answer the user's original question: "${trimmed}"`,
+            userProfile: tripSelection,
+            tripContext: tripPlan,
+          }),
+        })
+        const followUpData = await followUp.json()
+        finalReply = followUpData.reply
+      }
+
+      if (finalReply.startsWith("NEEDS_DATA:places")) {
+        const query = finalReply.replace("NEEDS_DATA:places", "").trim()
+        const placesRes = await fetch(`/api/places`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query }),
+        })
+        const placesData = await placesRes.json()
+
+        const followUp = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: `Here is real nearby place data: ${JSON.stringify(placesData)}. Now answer the user's original question: "${trimmed}"`,
+            userProfile: tripSelection,
+            tripContext: tripPlan,
+          }),
+        })
+        const followUpData = await followUp.json()
+        finalReply = followUpData.reply
+      }
+
       setMessages((prev) => [
         ...prev,
-        { id: `ai-${Date.now()}`, role: "ai", text: data.reply },
+        { id: `ai-${Date.now()}`, role: "ai", text: finalReply },
       ])
     } catch (err) {
       console.error(err)
@@ -63,7 +105,6 @@ export function AiChatClient() {
       setSending(false)
     }
   }
-
 
   return (
     <div className="mx-auto flex h-dvh w-full max-w-lg flex-col bg-background">
