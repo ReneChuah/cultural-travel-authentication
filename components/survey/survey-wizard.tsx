@@ -55,10 +55,6 @@ export function SurveyWizard() {
       guide: data.guide,
       travelers: Math.max(1, travelers),
       pace,
-      dietary,
-      travelerHealth,
-      otherNotes,
-      interests,
     })
   }
 

@@ -9,10 +9,6 @@ export type TripSelection = {
   guide: boolean
   travelers: number
   pace: string | null
-  dietary: string[]
-  travelerHealth: Record<string, { tags: string[]; note: string }>
-  otherNotes: string
-  interests: string[]
 }
 
 const KEY = "wanderlore.trip"
