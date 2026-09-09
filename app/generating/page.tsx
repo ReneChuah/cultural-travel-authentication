@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Compass } from "lucide-react"
+import { loadTripSelection } from "@/components/trip-selection"
+import { saveGeneratedTripPlan } from "@/components/generated-trip-plan"
 
 const messages = [
   "Reading your preferences",
@@ -20,11 +22,33 @@ export default function GeneratingPage() {
     const interval = setInterval(() => {
       setIndex((i) => Math.min(messages.length - 1, i + 1))
     }, 1100)
-    const redirect = setTimeout(() => router.push("/trip-plan"), 6000)
-    return () => {
-      clearInterval(interval)
-      clearTimeout(redirect)
+
+    async function generate() {
+      const selection = loadTripSelection()
+
+      try {
+        const res = await fetch("/api/generate-trip", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userProfile: selection }),
+        })
+
+        if (!res.ok) throw new Error(`API returned ${res.status}`)
+
+        const plan = await res.json()
+        saveGeneratedTripPlan(plan)
+      } catch (err) {
+        console.error("Failed to generate trip:", err)
+        // fall through — trip-plan page will fall back to mock data
+      }
+
+      router.push("/trip-plan")
     }
+
+    const minWait = new Promise((resolve) => setTimeout(resolve, 3000))
+    Promise.all([generate(), minWait])
+
+    return () => clearInterval(interval)
   }, [router])
 
   return (

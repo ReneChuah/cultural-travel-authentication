@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { loadGeneratedTripPlan } from "@/components/generated-trip-plan"
 
 import { useState } from "react"
 import Image from "next/image"
@@ -19,9 +20,8 @@ import {
 } from "lucide-react"
 import { tripPlan } from "@/components/trip-plan/data"
 import { useTripSelection } from "@/components/trip-selection"
+import { getNights, formatTripDates } from "@/components/trip-selection"
 
-const NIGHTS = 2
-const DATES = "12 – 14 Apr 2026"
 
 type Flight = {
   id: string
@@ -61,13 +61,16 @@ function money(currency: string, amount: number) {
 export function BookingSummaryClient() {
   const router = useRouter()
   const selection = useTripSelection()
-  const { currency, guideRequested, days } = tripPlan
-  const hotel = tripPlan.hotels[0]
-  const guide = tripPlan.guide
+  const plan = loadGeneratedTripPlan() ?? tripPlan
+  const NIGHTS = getNights(selection.duration)
+  const DATES = formatTripDates(selection)
+  const { currency, guideRequested, days } = plan
+  const hotel = plan.hotels.find((h) => h.id === plan.selectedHotelId) ?? plan.hotels[0]
+  const guide = plan.guide
 
   const flightsTotal = flights.reduce((sum, f) => sum + f.price, 0)
   const hotelTotal = hotel.pricePerNight * NIGHTS
-  const guideTotal = guideRequested ? guide.pricePerDay * days.length : 0
+  const guideTotal = guideRequested && guide ? guide.pricePerDay * days.length : 0
   const activitiesTotal = days.reduce(
     (sum, d) => sum + d.activities.reduce((s, a) => s + a.cost, 0),
     0,
@@ -205,7 +208,7 @@ export function BookingSummaryClient() {
           </Section>
 
           {/* Guide */}
-          {guideRequested && (
+          {guideRequested && guide &&  (
             <Section title="Your guide" trailing={money(currency, guideTotal)}>
               <article className="flex items-center gap-4 rounded-3xl border border-border bg-accent/60 p-4">
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full">
@@ -236,7 +239,7 @@ export function BookingSummaryClient() {
               <dl className="flex flex-col gap-3">
                 <LineItem label="Flights (2 travelers)" value={money(currency, flightsTotal)} />
                 <LineItem label={`Hotel · ${NIGHTS} nights`} value={money(currency, hotelTotal)} />
-                {guideRequested && <LineItem label={`Guide · ${days.length} days`} value={money(currency, guideTotal)} />}
+                {guideRequested && guide && <LineItem label={`Guide · ${days.length} days`} value={money(currency, guideTotal)} />}
                 <LineItem label="Activities estimate" value={money(currency, activitiesTotal)} />
               </dl>
               <div className="mt-4 flex items-center justify-between border-t border-border pt-4">

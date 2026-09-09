@@ -13,6 +13,31 @@ export type TripSelection = {
   travelerHealth: Record<string, { tags: string[]; note: string }>
   otherNotes: string
   interests: string[]
+  arrivalDate: string | null   
+  duration: string | null     
+}
+
+const NIGHTS_BY_DURATION: Record<string, number> = {
+  "Weekend": 2,
+  "3-5 days": 4,
+  "1 week": 7,
+  "Custom": 3,
+}
+
+export function getNights(duration: string | null): number {
+  return duration ? (NIGHTS_BY_DURATION[duration] ?? 3) : 3
+}
+
+export function formatTripDates(selection: TripSelection): string {
+  if (!selection.arrivalDate) return "Dates to be confirmed"
+  const nights = getNights(selection.duration)
+  const start = new Date(`${selection.arrivalDate}T00:00:00`)
+  const end = new Date(start)
+  end.setDate(end.getDate() + nights)
+
+  const fmt = (d: Date) => d.toLocaleDateString("en-US", { day: "numeric", month: "short" })
+  const year = end.getFullYear()
+  return `${fmt(start)} – ${fmt(end)} ${year}`
 }
 
 const KEY = "wanderlore.trip"
@@ -24,6 +49,12 @@ export const defaultSelection: TripSelection = {
   guide: true,
   travelers: 2,
   pace: "Relaxed",
+  dietary: [],
+  travelerHealth: {},
+  otherNotes: "",
+  interests: [],
+  arrivalDate: null,
+  duration: null,
 }
 
 export function saveTripSelection(sel: TripSelection) {

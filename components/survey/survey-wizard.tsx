@@ -47,6 +47,7 @@ export function SurveyWizard() {
     const travelers =
       data.party === "solo" ? 1 : data.counts.adults + data.counts.children + data.counts.elderly
     const pace = data.pace === "slow" ? "Relaxed" : data.pace === "fast" ? "Fast-paced" : null
+    
 
     saveTripSelection({
       destinationName,
@@ -56,9 +57,11 @@ export function SurveyWizard() {
       travelers: Math.max(1, travelers),
       pace,
       dietary:data.dietary,
-      travelerHealth:data.travelerHealth,
+      travelerHealth:data.travelers,
       otherNotes:data.otherNotes,
       interests:data.interests,
+      arrivalDate: data.arrivalDate,
+      duration: data.duration,
     })
   }
 
