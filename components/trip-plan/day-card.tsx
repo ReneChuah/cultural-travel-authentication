@@ -12,12 +12,16 @@ export function DayCard({
   guide,
   guideRequested,
   currency,
+  selectedHotelId,
+  onSelectHotel,
 }: {
   day: TripDay
   hotels: Hotel[]
-  guide: Guide
+  guide: Guide | null
   guideRequested: boolean
   currency: string
+  selectedHotelId?: string
+  onSelectHotel: (id: string) => void
 }) {
   const total = dayTotal(day)
 
@@ -77,17 +81,23 @@ export function DayCard({
             <h3 className="mb-3 text-sm font-semibold text-foreground">Where to stay</h3>
             <div className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-1">
               {hotels.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} currency={currency} />
+                <HotelCard
+                  key={hotel.id}
+                  hotel={hotel}
+                  currency={currency}
+                  selected={hotel.id === selectedHotelId}
+                  onSelect={() => onSelectHotel(hotel.id)}
+                />
               ))}
             </div>
           </div>
 
-          {guideRequested && (
+          {guideRequested && guide && (
             <div>
               <h3 className="mb-3 text-sm font-semibold text-foreground">Your local guide</h3>
               <GuideCard guide={guide} currency={currency} />
-            </div>
-          )}
+          </div>
+        )}
         </div>
       </div>
     </div>

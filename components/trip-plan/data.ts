@@ -50,6 +50,7 @@ export type TripPlan = {
   days: TripDay[]
   hotels: Hotel[]
   guide: Guide
+  selectedHotelId?: string
 }
 
 export const tripPlan: TripPlan = {

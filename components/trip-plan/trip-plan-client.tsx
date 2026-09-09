@@ -3,9 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, RotateCcw, Check, Loader2 } from "lucide-react"
-import { tripPlan, shuffle, type Hotel, type TripDay } from "./data"
+import { tripPlan, shuffle, type Hotel, type TripDay, Guide } from "./data"
 import { DayCard } from "./day-card"
 import { useTripSelection } from "@/components/trip-selection"
+import { loadGeneratedTripPlan, saveGeneratedTripPlan } from "@/components/generated-trip-plan"
+import { currency } from "../my-orders/data"
+
 
 const THRESHOLD = 110
 
@@ -13,8 +16,28 @@ export function TripPlanClient() {
   const router = useRouter()
   const selection = useTripSelection()
   const [activeDay, setActiveDay] = useState(0)
-  const [days, setDays] = useState<TripDay[]>(tripPlan.days)
-  const [hotels, setHotels] = useState<Hotel[]>(tripPlan.hotels)
+  const [days, setDays] = useState<TripDay[]>(() => {
+    const generated = loadGeneratedTripPlan()
+    return generated?.days ?? tripPlan.days
+  })
+  const [hotels, setHotels] = useState<Hotel[]>(() => {
+    const generated = loadGeneratedTripPlan()
+    return generated?.hotels ?? tripPlan.hotels
+  })
+  const [selectedHotelId, setSelectedHotelId] = useState<string>(
+    () => loadGeneratedTripPlan()?.selectedHotelId ?? hotels[0]?.id
+  )
+
+  const handleSelectHotel = useCallback((id: string) => {
+    setSelectedHotelId(id)
+    const current = loadGeneratedTripPlan()
+    if (current) saveGeneratedTripPlan({ ...current, selectedHotelId: id })
+  }, [])
+
+  const [guide, setGuide] = useState<Guide | null>(() => loadGeneratedTripPlan()?.guide ?? tripPlan.guide)
+  const [guideRequested, setGuideRequested] = useState(() => loadGeneratedTripPlan()?.guideRequested ?? tripPlan.guideRequested)
+  const currency = loadGeneratedTripPlan()?.currency ?? tripPlan.currency
+  
   const [tx, setTx] = useState(0)
   const [animate, setAnimate] = useState(true)
   const [toast, setToast] = useState(false)
@@ -31,23 +54,44 @@ export function TripPlanClient() {
     setToast(true)
     setAnimate(true)
     setTx(-width() * 1.3)
-    window.setTimeout(() => {
-      setDays((prev) => prev.map((d, i) => (i === activeDay ? { ...d, activities: shuffle(d.activities) } : d)))
-      setHotels((prev) => shuffle(prev))
-      setAnimate(false)
-      setTx(width() * 1.3)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setAnimate(true)
-          setTx(0)
+
+    async function fetchNewPlan() {
+      try {
+        const res = await fetch("/api/generate-trip", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userProfile: selection,
+            feedback: "The user swiped to regenerate — they didn't love this version. Give a noticeably different itinerary: different activities, different pacing, while still respecting their profile constraints.",
+          }),
         })
+        if (!res.ok) throw new Error(`API returned ${res.status}`)
+        const newPlan = await res.json()
+        saveGeneratedTripPlan(newPlan)
+        setDays(newPlan.days)
+        setHotels(newPlan.hotels)
+      } catch (err) {
+        console.error("Regenerate failed, falling back to shuffle:", err)
+        setDays((prev) => prev.map((d, i) => (i === activeDay ? { ...d, activities: shuffle(d.activities) } : d)))
+        setHotels((prev) => shuffle(prev))
+      }
+    }
+
+    window.setTimeout(() => {
+      fetchNewPlan().finally(() => {
+        setAnimate(false)
+        setTx(width() * 1.3)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setAnimate(true)
+            setTx(0)
+          })
+        })
+        setToast(false)
+        setBusy(false)
       })
     }, 260)
-    window.setTimeout(() => {
-      setToast(false)
-      setBusy(false)
-    }, 1100)
-  }, [activeDay, busy])
+  }, [activeDay, busy, selection])
 
   const looksGood = useCallback(() => {
     if (busy) return
@@ -165,9 +209,11 @@ export function TripPlanClient() {
           <DayCard
             day={day}
             hotels={hotels}
-            guide={tripPlan.guide}
-            guideRequested={tripPlan.guideRequested}
-            currency={tripPlan.currency}
+            guide={guide}
+            guideRequested={guideRequested}
+            currency={currency}
+            selectedHotelId={selectedHotelId}
+            onSelectHotel={handleSelectHotel}
           />
         </div>
       </div>

@@ -12,6 +12,7 @@ import { TripsSubNav } from "@/components/my-trips/trips-sub-nav"
 import { BottomNav } from "@/components/home/bottom-nav"
 import { useTripSelection } from "@/components/trip-selection"
 import { cn } from "@/lib/utils"
+import { loadGeneratedTripPlan } from "@/components/generated-trip-plan"
 
 const dayDates = ["12 Apr", "13 Apr", "14 Apr"]
 
@@ -19,9 +20,10 @@ export function MyTripPlanClient() {
   const [activeDay, setActiveDay] = useState(0)
   const [mapActivity, setMapActivity] = useState<Activity | null>(null)
   const selection = useTripSelection()
-  const { currency, days, hotels, guide, guideRequested } = tripPlan
-  const day = days[activeDay]
-  const confirmedHotel = hotels[0]
+  const plan = loadGeneratedTripPlan() ?? tripPlan
+  const { currency, days, hotels, guide, guideRequested } = plan
+  const day = days[activeDay] 
+  const confirmedHotel = hotels.find((h) => h.id === plan.selectedHotelId) ?? hotels[0]
 
   return (
     <div className="mx-auto min-h-dvh w-full max-w-lg bg-background">
