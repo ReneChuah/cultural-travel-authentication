@@ -26,7 +26,7 @@ export type OfflineItem = {
 
 export const rewardPoints = 1250
 
-export const referralLink = "wanderlore.app/r/maya-4x2k"
+export const referralLink = "Roamio.app/r/maya-4x2k"
 
 export const bookmarks: SavedItem[] = [
   { id: "kyoto", name: "Kyoto temple stays", place: "Japan", image: "/packages/kyoto.png" },

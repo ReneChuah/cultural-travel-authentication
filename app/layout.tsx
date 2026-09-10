@@ -16,7 +16,7 @@ const nunitoSans = Nunito_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Wanderlore — Cultural Travel',
+  title: 'Roamio — Cultural Travel',
   description: 'Discover the stories, crafts, and flavors of the world. Sign up to start your cultural journey.',
   generator: 'v0.app',
   icons: {

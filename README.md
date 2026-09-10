@@ -1,4 +1,4 @@
-# Wanderlore
+# Roamio
 
 **Team:** Lim Shin Yin, Chuah Rui En, Tan Shin Yue, Yap Sheng Lih
 **Problem Statement:** Travel Planner
@@ -87,7 +87,7 @@ An AI-powered personalised travel planning platform that helps users go from dis
 | Personalised AI itinerary generator | ✅ Chosen | Directly reduces the time needed to research and organise a trip by combining destination, interests, pace, group size and budget into one plan. |
 | Budget and expense tracker | ✅ Chosen | Budget is a major constraint for young travellers; tracking actual vs planned spend makes the itinerary more practical. |
 | AI travel concierge / live chat | ✅ Chosen | Lets users ask questions during the trip instead of searching across multiple apps. |
-| Weather-aware itinerary adaptation | ✅ Chosen | Makes Wanderlore more than a static itinerary generator — the plan can react to unexpected conditions such as rain. |
+| Weather-aware itinerary adaptation | ✅ Chosen | Makes Roamio more than a static itinerary generator — the plan can react to unexpected conditions such as rain. |
 | Nearby-place recommendations | ✅ Chosen | Helps users find alternatives such as restaurants, attractions or facilities based on their current situation. |
 | Group preference collection | ✅ Chosen | Travelling with others often creates conflicting preferences; collecting group info lets the plan better fit everyone. |
 | Social-media-style travel package feed | ✅ Chosen | An engaging way for young travellers to discover destinations before starting a trip. |
@@ -130,7 +130,7 @@ flowchart TD
 
 ## 3. Design & Prototype
 
-**UI Prototype:** [https://wanderlore-site.vercel.app/](https://wanderlore-site.vercel.app/) *(open in an incognito window)*
+**UI Prototype:** [https://Roamio-site.vercel.app/](https://Roamio-site.vercel.app/) *(open in an incognito window)*
 
 | Screen | What it shows |
 |---|---|
@@ -177,7 +177,7 @@ flowchart TD
 
 ```mermaid
 graph TD
-    A[Wanderlore<br/>Next.js / React] --> B[Supabase<br/>Auth + Database]
+    A[Roamio<br/>Next.js / React] --> B[Supabase<br/>Auth + Database]
     A --> C[Next.js API<br/>Gemini AI Chat]
     A --> D[External APIs<br/>Open-Meteo / Google Places]
     B --> E[(PostgreSQL DB<br/>Users, Trips, Itineraries,<br/>Expenses, Orders, Rewards)]

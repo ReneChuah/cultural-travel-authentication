@@ -222,7 +222,7 @@ export function ProfileClient() {
           </ul>
         </section>
 
-        <p className="text-center text-xs text-muted-foreground">Wanderlore · v1.0.0</p>
+        <p className="text-center text-xs text-muted-foreground">Roamio · v1.0.0</p>
       </main>
 
       <BottomNav active="profile" />

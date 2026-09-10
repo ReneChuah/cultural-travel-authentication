@@ -40,7 +40,7 @@ export function formatTripDates(selection: TripSelection): string {
   return `${fmt(start)} – ${fmt(end)} ${year}`
 }
 
-const KEY = "wanderlore.trip"
+const KEY = "Roamio.trip"
 
 export const defaultSelection: TripSelection = {
   destinationName: "Kyoto",

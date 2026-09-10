@@ -9,7 +9,7 @@ export function TopBar() {
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
             <Compass className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="font-serif text-xl font-semibold tracking-tight text-foreground">Wanderlore</span>
+          <span className="font-serif text-xl font-semibold tracking-tight text-foreground">Roamio</span>
         </Link>
 
         <Link

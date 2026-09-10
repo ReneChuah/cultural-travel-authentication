@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 
-const STORAGE_KEY = "wanderlore.aibubble.pos"
+const STORAGE_KEY = "Roamio.aibubble.pos"
 const SIZE = 56
 const EDGE = 12
 const TAP_THRESHOLD = 6

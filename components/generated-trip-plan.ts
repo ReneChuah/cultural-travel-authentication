@@ -2,7 +2,7 @@
 
 import type { TripPlan } from "@/components/trip-plan/data"
 
-const KEY = "wanderlore.generatedTrip"
+const KEY = "Roamio.generatedTrip"
 
 export function saveGeneratedTripPlan(plan: TripPlan) {
   try {
