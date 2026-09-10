@@ -3,207 +3,675 @@
 **Team:** Lim Shin Yin, Chuah Rui En, Tan Shin Yue, Yap Sheng Lih
 **Problem Statement:** Travel Planner
 **Video Presentation:** [Unlisted YouTube Link](link)
-**Presentation Slides:** [Public Link](link)
+**UI Prototype:** [Vercel Deployment Link]
 
 ---
 
-## 1. Project Overview
+# 1. Project Overview
 
-### The Problem
+## The Problem
 
-- Travel planning can be time-consuming, complicated and fragmented.
-- Travellers often need to switch between different platforms for:
-  - Destination discovery
-  - Flight and hotel searching
-  - Itinerary planning
-  - Maps and places
-  - Weather information
-  - Booking
-  - Expense tracking
-- Existing travel apps often focus on one specific stage of the travel journey rather than providing a seamless end-to-end experience.
+Travel planning can be time-consuming and fragmented, especially for travellers who have different needs within the same group.
 
-### Causes of the Problem
+Most existing travel platforms sit at one of two extremes:
 
-- Too much information across different platforms.
-- Travellers need to manually compare different options.
-- Generic itineraries may not consider the traveller's actual needs.
-- Group travellers may have different ages, preferences and physical limitations.
-- First-time / younger travellers may not know how to efficiently organise a trip.
-- Changes in weather or circumstances can make a planned itinerary less suitable.
+- **Booking platforms** such as Trip.com and Klook:
+  - Provide extensive flights, hotels, attractions and activities.
+  - However, users still need to manually search, compare and decide whether each option suits their group.
+  - They do not deeply consider factors such as physical limitations, dietary needs or preferred travel pace.
+
+- **Generic AI assistants** such as ChatGPT and Gemini:
+  - Can provide personalised travel advice through conversation.
+  - However, recommendations often remain as text in a chat.
+  - There is no direct bridge from an AI suggestion to a structured, actionable and bookable itinerary.
+
+This creates a fragmented planning experience where travellers may need to use multiple platforms for:
+
+- Destination discovery
+- Itinerary planning
+- Hotel and activity selection
+- Weather information
+- Maps and places
+- Booking
+- Expense tracking
+- Travel assistance
 
 ### Stakeholders
 
-- **Travellers** — Main users of the platform. Need convenient and personalised trip planning.
-- **Travel companions / family members** — Need to coordinate activities and travel plans.
-- **Hotels and accommodation providers** — Potential booking/service providers.
-- **Airlines and transportation providers** — Provide flights and transportation options.
-- **Tour / activity providers** — Provide attractions, tours and activities.
-- **Travel service platforms** — Provide external travel-related services and information.
+- **Travellers**
+  - Especially those travelling with children, elderly companions or physical limitations.
+  - Need convenient and personalised trip planning.
 
-### Similar Apps in the Market
+- **Travel companions / families**
+  - Need to coordinate activities and make sure the itinerary suits everyone.
 
-**1. Wanderlog**
-What it does well: day-by-day itinerary planning, interactive maps, route planning, travel time between locations, hotel/flight reservations, budget tracking, collaboration, AI travel assistance.
-Why it falls short: very comprehensive but mainly focused on managing and organising a trip that the user already knows they want. Our concept places more emphasis on personalised planning based on traveller profiles (group composition, children/adults/elderly, physical limitations, personal preferences), and starts from travel *discovery* rather than requiring the user to already know what they want to plan.
+- **Local guides**
+  - Need a way to reach travellers looking for authentic local experiences.
 
-**2. TripIt**
-What it does well: organises flight, hotel and reservation info into a centralised itinerary, provides alerts, helps manage a trip after booking.
-Why it falls short: stronger at organising an already-booked trip; less focused on helping users decide where to go, what to do, and how to build a personalised itinerary from scratch.
+- **Hotels and accommodation providers**
+  - Provide accommodation options that can be integrated into the planning process.
 
-**3. Roadtrippers**
-What it does well: route planning, places/attractions discovery, AI-assisted trip planning, strong focus on road trips.
-Why it falls short: primarily designed around road-trip/route-based travel. Our platform targets a broader range of travellers and considers the individual needs of the travelling group.
+- **Tour and activity providers**
+  - Provide attractions, tours and local experiences.
+
+- **Cultural festivals and local communities**
+  - Can gain greater visibility among travellers interested in cultural tourism.
+
+---
+
+## Similar Applications & Market Gap
+
+| Existing Solution | What They Do Well | Where They Fall Short |
+|---|---|---|
+| **Trip.com / Klook** | Large selection of flights, hotels, attractions and activities; strong search and booking capabilities | Users still need to manually filter and judge whether options fit their group, physical needs, dietary requirements or preferred pace |
+| **Wanderlog** | AI planning, itineraries, maps, route planning, budgeting, collaboration and reservations | Strong trip organisation, but our concept places greater emphasis on traveller-specific constraints and proactive user profiling |
+| **TripIt** | Organises existing flight, hotel and reservation information; provides travel information and alerts | Primarily focuses on managing an already-booked trip rather than helping users discover and build a personalised trip from scratch |
+| **Generic AI Assistants** | Flexible conversational advice and personalisation | Advice often remains inside the conversation instead of becoming a structured, actionable itinerary |
 
 ### Market Gap
 
-Existing apps have many strong individual features, but users still need to combine several tools for discovering a trip, personalising it, generating an itinerary, booking, managing expenses, and getting travel assistance. **Our opportunity:** combine these stages into one beginner-friendly, end-to-end travel planning experience.
+Existing applications provide many powerful travel tools, but they often focus on individual stages of the travel journey.
 
-### Our Solution
+Our opportunity is to connect:
 
-An AI-powered personalised travel planning platform that helps users go from discovering a destination → planning → booking → managing their trip. Users provide information about their destination, travel group, number of adults/children/elderly, preferences and physical limitations, and the AI uses this to generate a personalised day-by-day itinerary. The platform also integrates weather, places and maps to support decision-making throughout the trip.
+**Discover → Personalise → Generate → Customise → Book → Assist**
 
-**Core User Journey:** Discover → Personalise → Generate → Customise → Book → Track → Assist
-
-### ⭐ Killer / Key Features
-
-1. **AI Personalised Itinerary** — generates a day-by-day plan, adapted to the user's preferences, travel group and physical constraints.
-2. **Personalised Travel Survey** — collects destination, group type, traveller counts, physical limitations and preferences before generation.
-3. **Social-style Travel Discovery Feed** — browse seasonal trips, popular destinations and deals; add interesting options directly to a trip.
-4. **AI Live Travel Assistant** — trip-context-aware Q&A that responds to changing travel conditions.
-5. **Weather-aware Travel Assistance** — surfaces weather info and suggests alternatives when conditions are unsuitable.
-6. **Add-to-Trip Itinerary** — add AI-recommended activities directly into the itinerary, no manual copying.
-7. **Integrated Booking Flow** — itinerary → booking → summary → confirmation in one flow.
-8. **Expense Tracking** — record actual spending and compare against the planned budget.
-9. **Maps & Places Integration** — location-based discovery to support planning.
+into one continuous experience.
 
 ---
 
-## 2. Ideation & Process
+# Our Solution
 
-### 2.1 Ideas We Considered
+[Project Name] is an **AI-powered travel concierge** designed to make travel planning more personalised and actionable.
 
-| Idea | Decision | Why |
+Instead of starting with a blank search bar or chat box, the app proactively collects information about the traveller's group, preferences, physical limitations, dietary needs, pace and budget. The AI then uses this profile to generate a structured day-by-day itinerary presented as interactive cards rather than walls of text.
+
+Users can customise their itinerary, select hotels and proceed through a booking flow. During the trip, the AI Travel Concierge remains available to answer questions using the user's trip context together with live information such as weather and nearby places.
+
+### Core User Journey
+
+**Discover → Personalise → AI Generate → Customise → Book → Travel → AI Assist**
+
+---
+
+## Core Feature Set
+
+- **Multi-dimensional Traveller Profiling**
+  - Physical capability
+  - Dietary restrictions
+  - Preferred travel pace
+  - Budget
+  - Group composition
+  - Children / adults / elderly
+
+- **AI-generated Structured Itinerary**
+  - Day-by-day activities
+  - Hotel recommendations
+  - Estimated costs
+  - Physical-difficulty information
+
+- **Interactive Itinerary Cards**
+  - View activities as cards rather than plain text.
+  - Regenerate individual days.
+  - Add recommendations directly to the trip.
+
+- **Physical-Difficulty Warnings**
+  - Highlights potentially demanding activities based on the user's stated limitations.
+
+- **Real-time AI Travel Concierge**
+  - Answers travel-related questions.
+  - Uses the user's trip context.
+  - Can use weather and nearby-place information.
+  - Can suggest alternative activities.
+
+- **Apply AI Suggestions to Itinerary**
+  - Users can apply AI-generated changes directly to their trip plan.
+
+- **Mock Booking Flow**
+  - Hotel selection
+  - Booking summary
+  - Confirmation
+
+- **Expense Tracking**
+  - Allows travellers to record actual spending during their trip.
+
+- **Maps & Places Integration**
+  - Helps users discover nearby attractions and useful places.
+
+- **Travel Discovery Feed**
+  - Seasonal destinations
+  - Cultural festivals
+  - Travel packages
+  - Deals and promotions
+
+---
+
+# 2. Novel Features
+
+## 1. Traveller-Aware AI Planning
+
+The AI considers **who is travelling**, rather than only asking where the user wants to go.
+
+It takes into account:
+
+- Group composition
+- Physical capability
+- Dietary needs
+- Budget
+- Travel pace
+- Personal preferences
+
+**Novel twist:**  
+Personalisation begins with the traveller's needs instead of being based only on the destination.
+
+---
+
+## 2. Physical-Constraint-Aware Group Planning
+
+Users can specify physical limitations such as:
+
+- Injured foot
+- Difficulty walking long distances
+- Unable to climb steep areas
+- Elderly travellers
+- Young children
+
+The AI can then take these constraints into account when selecting activities.
+
+**Novel twist:**  
+The system considers the needs of the **whole travelling group**, rather than treating every traveller as physically identical.
+
+---
+
+## 3. Social-style Travel Discovery Feed
+
+Instead of opening the app to an empty itinerary, users can first browse:
+
+- Seasonal trips
+- Cultural festivals
+- Travel packages
+- Popular destinations
+- Promotions
+
+Users can then move directly from discovery into planning.
+
+**Novel twist:**
+
+**Discover → Personalise → Plan**
+
+rather than requiring users to already know what they want before planning their trip.
+
+---
+
+## 4. Structured & Actionable AI Output
+
+The AI does not simply return a paragraph of travel recommendations.
+
+Instead, it generates structured itinerary data that becomes:
+
+- Activity cards
+- Hotel cards
+- Cost information
+- Physical-difficulty warnings
+- Actions such as regeneration and adding to the trip
+
+**Novel twist:**  
+AI recommendations are transformed into **actions inside the travel planner**, rather than remaining as conversational advice.
+
+---
+
+## 5. Closed-Loop AI Concierge
+
+The AI concierge can:
+
+1. Understand the user's trip context.
+2. Check relevant information such as weather or nearby places.
+3. Recommend a change.
+4. Let the user apply the recommendation.
+5. Update the itinerary.
+
+Example:
+
+**Rain tomorrow → AI suggests indoor alternatives → User taps "Apply to itinerary" → Trip plan is updated.**
+
+**Novel twist:**  
+The AI closes the loop between:
+
+**Ask → Recommend → Apply → Updated Trip**
+
+---
+
+# 3. Future Development
+
+The current prototype focuses on demonstrating the core AI travel-planning experience. Future versions could expand the platform with more advanced travel automation.
+
+## Smart Time Management
+
+- Estimate travel time between hotels and destinations.
+- Consider different transportation methods.
+- Account for traffic conditions.
+- Detect scheduling conflicts.
+- Warn users when an itinerary is too tightly packed.
+- Provide automatic departure reminders.
+- Provide flight departure and boarding reminders.
+
+## Dynamic Itinerary Adjustment
+
+Future versions could automatically adjust the itinerary when:
+
+- Weather conditions change.
+- Flights are delayed.
+- Attractions become unavailable.
+- Travel times change.
+- Activities conflict with each other.
+
+---
+
+## One-Tap Travel Bundle
+
+Future versions could allow users to purchase a complete travel bundle directly from their generated itinerary, including:
+
+- Hotel
+- Flights
+- Transportation
+- Activities
+- Local guide
+
+### Current Limitation
+
+Real one-tap bundling would require integration with external hotel, flight and activity booking APIs.
+
+Some commercial APIs require paid access, partnerships or additional infrastructure. Therefore, the current prototype demonstrates the booking flow using mock data rather than processing real transactions.
+
+---
+
+## Local Guide Marketplace
+
+Future versions could allow local guides to register on the platform and offer their services directly to travellers.
+
+### Guide Registration
+
+Guides could create profiles containing:
+
+- Languages
+- Location
+- Areas of expertise
+- Tour types
+- Availability
+- Pricing
+- Verification status
+
+### AI Guide Matching
+
+The system could match travellers with suitable local guides based on:
+
+- Destination
+- Interests
+- Language
+- Group size
+- Budget
+- Preferred activities
+- Traveller requirements
+
+### Trust & Safety
+
+Potential future features include:
+
+- KYC / identity verification
+- Verified-guide badges
+- Ratings and reviews
+- Reporting and dispute mechanisms
+
+### Concept
+
+**Traveller Profile + Trip Plan → Matching System → Suitable Local Guides → Request / Booking → Review**
+
+---
+
+## Other Future Improvements
+
+- Travel checklist
+- Currency exchange alerts
+- Flight price tracking
+- Real-time travel disruption notifications
+- Voucher and referral system
+- Reward points
+- More advanced booking integrations
+- More comprehensive guide marketplace
+
+---
+
+# 4. Ideation & Process
+
+## 4.1 Ideas We Considered
+
+| Idea | Decision | Reason |
 |---|---|---|
-| Personalised AI itinerary generator | ✅ Chosen | Directly reduces the time needed to research and organise a trip by combining destination, interests, pace, group size and budget into one plan. |
-| Budget and expense tracker | ✅ Chosen | Budget is a major constraint for young travellers; tracking actual vs planned spend makes the itinerary more practical. |
-| AI travel concierge / live chat | ✅ Chosen | Lets users ask questions during the trip instead of searching across multiple apps. |
-| Weather-aware itinerary adaptation | ✅ Chosen | Makes Roamio more than a static itinerary generator — the plan can react to unexpected conditions such as rain. |
-| Nearby-place recommendations | ✅ Chosen | Helps users find alternatives such as restaurants, attractions or facilities based on their current situation. |
-| Group preference collection | ✅ Chosen | Travelling with others often creates conflicting preferences; collecting group info lets the plan better fit everyone. |
-| Social-media-style travel package feed | ✅ Chosen | An engaging way for young travellers to discover destinations before starting a trip. |
-| Rewards, vouchers and referral system | ✅ Chosen | Encourages continued engagement and gives budget-conscious users additional value. |
-| Fully automated booking platform | ⚠️ Scoped down | Useful, but integrating real payment/hotel/flight systems is unnecessary complexity for a prototype — we demonstrate the booking *flow* without a full marketplace backend. |
-| Real-time group collaborative editing | ⚠️ Scoped down | Valuable for group travel, but real-time multi-user sync needs extra backend infra. We prioritised collecting group preferences and generating one shared plan first. |
-| Standalone social travel community | ❌ Dropped | Interesting for engagement, but a full social platform would significantly increase scope without solving the core planning problem. |
-| Full travel-agent replacement | ❌ Dropped | Too broad for this project's scope — we focus on reducing repetitive planning work, not replacing human travel professionals. |
-
-### 2.2 Ideation Boards
-
-**Initial Brainstorm**
-
-![Initial ideation mindmap](ideation-mindmap.png)
-
-*Our earliest brainstorm covering concepts like a "spin wheel" for random destinations, live replanning, geo-scheduling, fatigue alerts, guide matching, and a "local trust" Q&A layer. Some of these (spin wheel, culture tales) were later dropped or scoped down as we narrowed toward the core planning flow.*
-
-**Final User Flow**
-
-```mermaid
-flowchart TD
-    A[Discover] --> B[Personalise]
-    B --> C[Generate]
-    C --> D[Review]
-    D --> E[Book]
-    E --> F[Travel]
-    F --> G[AI Live Chat]
-    G --> H[Adapt]
-    H --> I[Track Spending]
-    I --> J[Rewards]
-```
-
-### 2.3 Mentor Consultation
-
-| Date | Mentor | Feedback Received | What Was Changed |
-|---|---|---|---|
-| - | - | - | - |
+| Conversational onboarding + card-based UI | 🟢 **Chosen** | Differentiates the experience from static booking platforms and traditional forms |
+| AI-generated structured itinerary | 🟢 **Chosen** | Allows AI output to become an actionable itinerary instead of plain text |
+| Physical-difficulty warnings | 🟢 **Chosen** | Directly addresses traveller-specific physical constraints |
+| Real-time AI Concierge | 🟢 **Chosen** | Keeps AI useful during the trip rather than only during initial planning |
+| Weather / nearby places integration | 🟢 **Chosen** | Allows the AI to respond using real travel context |
+| Swipe-to-regenerate itinerary | 🟢 **Chosen** | Gives users an easy way to customise unwanted itinerary days |
+| Voucher / referral / reward points | 🟡 **Future** | Useful commercially but not essential to the core prototype |
+| Local guide marketplace | 🟡 **Future** | Strong extension of personalised travel, but requires guide onboarding and marketplace infrastructure |
+| KYC / guide verification | 🟡 **Future** | Important for trust and safety but outside the current prototype scope |
+| One-tap travel bundle | 🟡 **Future** | Requires external commercial booking APIs and additional integrations |
+| Real-time travel time estimation | 🟡 **Future** | Requires additional routing / transportation APIs |
+| Flight and departure reminders | 🟡 **Future** | Requires flight data and notification infrastructure |
+| Real-time flight price tracking | 🔴 **Dropped / Deferred** | Requires additional external APIs and scheduled background jobs |
+| Full P2P guide marketplace | 🔴 **Deferred** | Requires user/provider accounts, matching, verification, availability and booking infrastructure |
 
 ---
 
-## 3. Design & Prototype
+## 4.2 Ideation Boards
 
-**UI Prototype:** [https://Roamio-site.vercel.app/](https://Roamio-site.vercel.app/) *(open in an incognito window)*
+### Board 1 — Problem & Opportunity
 
-| Screen | What it shows |
-|---|---|
-| Home / Discovery Feed | Seasonal travel packages, social-feed style browsing |
-| Survey Wizard | Destination, group, physical limitations, budget & pace input |
-| Generated Itinerary | Timeline cards with activities, hotels, guide match |
-| My Trip Plan | Full itinerary + budget breakdown, AI chat entry point |
+![Problem Ideation](assets/ideation-1.png)
 
-*(Swap in your own screenshots + captions here)*
+*Early brainstorming around fragmented travel planning, personalisation and the needs of different traveller groups.*
 
 ---
 
-## 4. What Makes It Different
+### Board 2 — Feature Ideation
 
-| Novel Feature | Our Twist |
-|---|---|
-| ⭐ Traveller Profile-Based AI Planning | AI considers *who* is travelling, not just the destination. |
-| ⭐ Physical-Constraint-Aware Planning | Considers mobility limitations and different age groups within a travel group. |
-| ⭐ Social-style Travel Discovery Feed | Combines inspiration/discovery with direct trip planning. |
-| ⭐ Discovery-to-Booking Workflow | Connects discovery → personalisation → AI planning → itinerary → booking. |
-| ⭐ Context-Aware AI Travel Assistant | AI uses the user's profile, itinerary and live travel info rather than acting as a generic chatbot. |
+![Feature Ideation](assets/ideation-2.png)
+
+*Exploration of AI planning, concierge assistance, booking, local guide matching and future travel automation.*
 
 ---
 
-## 5. Technical Architecture & Feasibility
+### Board 3 — Feature Prioritisation
 
-### Tech Stack
+![Feature Prioritisation](assets/ideation-3.png)
 
-| Feature area | Tech / Service | Why | Constraints |
-|---|---|---|---|
-| Frontend | Next.js + Tailwind | Already our foundation, deploys easily | — |
-| Hosting | Vercel | Native Next.js support, free tier, auto-deploy on push | Free tier has function timeout/usage limits |
-| Auth | Supabase Auth | Free, built-in email/password, ties directly into our Postgres DB | Must write RLS (row-level security) policies ourselves, or users could see each other's data |
-| Database | Supabase (Postgres) | One place for users, trips, itineraries, orders, expenses, rewards, vouchers | Free tier has storage/row limits + project pauses after inactivity |
-| Backend logic | Next.js API routes | No separate backend server needed | Serverless cold starts on free hosting |
-| AI itinerary + chat | Google Gemini API | Generous free quota, already integrated | Occasional malformed JSON — handled with retry logic |
-| Destination picker | Google Maps Platform (Geocoding + Places API) | Reliable global place data, real geolocation | Requires a billing-enabled Google Cloud account even on free tier (no charge under quota) |
-| Weather replanning | OpenWeatherMap API (or similar) | Simple REST, free tier | Rate-limited on free tier |
-| Payments | None — checkout is fully mocked | Matches prototype scope | Could upgrade to Stripe test mode later if desired |
-| Local guide matching | Mock data in a Supabase table | No real public API exists for this | Just our own seeded dataset |
-| Rewards / referral / promo / voucher | Supabase tables + our own logic | Simple relational data, no 3rd party needed | Referral fraud prevention is a "nice to have," skipped for MVP |
-
-### System Architecture Diagram
-
-```mermaid
-graph TD
-    A[Roamio<br/>Next.js / React] --> B[Supabase<br/>Auth + Database]
-    A --> C[Next.js API<br/>Gemini AI Chat]
-    A --> D[External APIs<br/>Open-Meteo / Google Places]
-    B --> E[(PostgreSQL DB<br/>Users, Trips, Itineraries,<br/>Expenses, Orders, Rewards)]
-```
-
-### Build Plan & Scope
-
-**MVP (committed for the building phase):**
-- Auth (sign up / login) via Supabase
-- Personalised survey → AI-generated itinerary (Gemini)
-- Trip plan display with budget breakdown
-- AI live chat with weather-aware replanning
-- Mock order/booking flow + My Orders history
-
-**Stretch goals (if time permits):**
-- Local guide matching
-- Rewards / referral / promo / voucher system
-- Map-based destination picker (Google Places)
+*Features were prioritised according to user value and implementation difficulty, allowing the team to focus on the core AI experience within the prototype timeline.*
 
 ---
 
-## 6. Future Improvements
+# 5. User Flow
 
-- Travel time estimation between hotel and destinations, considering transportation methods.
-- Automatic departure reminders to prevent missed activities.
-- Traffic-aware itinerary adjustments.
-- Automatic itinerary adjustment when weather changes, delays occur, or attractions become unavailable.
-- Schedule conflict detection for overly tight timing.
-- Real-time booking integration with actual hotel/flight/activity services.
+![User Flow](assets/user-flow.png)
+
+### Main Flow
+
+**Discover**
+
+↓  
+
+**Personalised Survey**
+
+↓  
+
+**AI Itinerary Generation**
+
+↓  
+
+**Interactive Itinerary**
+
+↓  
+
+**Customise / Regenerate**
+
+↓  
+
+**Select Hotel / Guide**
+
+↓  
+
+**Booking Summary**
+
+↓  
+
+**Confirmation**
+
+↓  
+
+**During Trip**
+
+↓  
+
+**AI Travel Concierge**
+
+↓  
+
+**Weather / Places / Replanning**
+
+↓  
+
+**Apply Changes to Trip**
+
+---
+
+# 6. Design & Prototype
+
+**UI Prototype:** [Vercel Deployment Link]
+
+The prototype demonstrates the core journey from traveller profiling to AI itinerary generation, itinerary interaction, booking and real-time AI assistance.
+
+---
+
+## Key Screens
+
+### 01 — Home Feed
+
+![Home Feed](assets/screens/home.png)
+
+*Discover seasonal festivals, travel packages and destinations before starting a trip.*
+
+---
+
+### 02 — Personalised Survey
+
+![Personalised Survey](assets/screens/survey.png)
+
+*Collects traveller group, physical limitations, dietary requirements, preferences and other information used for personalised planning.*
+
+---
+
+### 03 — AI Itinerary Generation
+
+![Generating Screen](assets/screens/generating.png)
+
+*The AI generates a structured itinerary based on the traveller's profile.*
+
+---
+
+### 04 — Interactive Itinerary Cards
+
+![Itinerary Cards](assets/screens/itinerary.png)
+
+*Day-by-day recommendations are displayed as interactive cards with activities, costs, hotels and physical-difficulty information.*
+
+---
+
+### 05 — Booking Summary
+
+![Booking Summary](assets/screens/booking-summary.png)
+
+*Consolidates the selected hotel, guide and trip cost before confirmation.*
+
+---
+
+### 06 — AI Travel Concierge
+
+![AI Concierge](assets/screens/ai-concierge.png)
+
+*Provides contextual travel assistance and can apply AI-generated changes directly to the user's itinerary.*
+
+---
+
+# 7. What Makes It Different
+
+### Conversational Profiling Instead of Static Forms
+
+Rather than asking users to complete a long traditional form, the app collects important travel constraints through a lightweight conversational flow.
+
+---
+
+### Structured, Executable Output Instead of Plain-text Advice
+
+Generic AI assistants can provide travel suggestions, but our system converts AI output into structured itinerary cards that users can directly interact with.
+
+---
+
+### Personalisation That Persists Across the Trip
+
+The user's profile is not only used during initial itinerary generation.
+
+Physical limitations, dietary needs, budget and other preferences remain part of the user's travel context and can influence later AI Concierge interactions.
+
+---
+
+### Closed Loop Between Advice and Action
+
+When the AI recommends a change, users can apply it directly to their itinerary instead of manually copying the recommendation.
+
+**AI Advice → User Action → Updated Itinerary**
+
+---
+
+# 8. Technical Architecture & Feasibility
+
+## Tech Stack
+
+| Layer | Technology | Purpose | Why We Chose It | Known Limitation |
+|---|---|---|---|---|
+| **Frontend** | Next.js + React + TypeScript | User interface and interactions | Fast development, reusable components and suitable for a full-stack web application | Requires deployment/build configuration |
+| **Backend** | Next.js API Routes | Handles AI, weather and places requests | Keeps frontend and backend in one codebase | Serverless/API execution limits |
+| **Database** | Supabase | Stores user profiles, trip plans, bookings and future guide profiles | PostgreSQL database with authentication and easy web integration | Free-tier storage, database and request limits |
+| **AI** | Gemini API | Generates itineraries and powers AI Travel Concierge | Supports structured JSON output, making it suitable for itinerary cards | Free-tier quota and occasional overloaded / 503 responses |
+| **Weather** | Open-Meteo | Provides weather information | Free and does not require an API key | Less extensive than some commercial weather APIs |
+| **Maps / Places** | Google Places API | Nearby places and location lookup | Reliable place and location data | API usage may require billing / quota |
+| **Hosting** | Vercel | Hosts the web application | Easy GitHub integration and automatic deployment | Usage and serverless limits |
+| **Version Control** | GitHub | Source control and deployment integration | Enables collaboration and version history | Requires proper branch and merge management |
+
+---
+
+## Supabase
+
+Supabase is used as the application's persistent data layer.
+
+Potential data includes:
+
+- User accounts
+- Traveller profiles
+- Travel preferences
+- Generated trip plans
+- Bookings
+- Expense records
+- Local guide profiles
+- Guide availability
+- Reviews
+
+Supabase Authentication can also support user registration and login.
+
+### Limitation
+
+The free tier has limits on database storage, requests and other resources. A production-scale version may require a paid plan or additional infrastructure.
+
+---
+
+## External API Constraints
+
+### Gemini API
+
+The Gemini free tier has daily request limits and can occasionally return `503` errors when the model is overloaded.
+
+The prototype mitigates this through an automatic retry-with-backoff mechanism.
+
+---
+
+### Google Places API
+
+Google Places provides useful location and nearby-place information.
+
+However, real-world production usage may require:
+
+- Billing setup
+- API quota
+- Usage monitoring
+
+---
+
+### One-Tap Travel Bundle
+
+A real one-tap bundle would require external commercial APIs for:
+
+- Flights
+- Hotels
+- Activities
+- Transportation
+
+These APIs may require paid access or commercial partnerships.
+
+Therefore, the current prototype uses mock booking data to demonstrate the intended user experience.
+
+---
+
+# 9. Build Plan & Scope
+
+For the prototype, we prioritised the core experience:
+
+**User Profiling**
+
+→ **AI-generated Structured Itinerary**
+
+→ **Interactive Itinerary Cards**
+
+→ **Regeneration / Hotel Selection**
+
+→ **Mock Booking**
+
+→ **AI Travel Concierge**
+
+→ **Live Weather / Places Lookup**
+
+→ **Apply AI Changes to Itinerary**
+
+Commercial and infrastructure-heavy features such as real-time flight tracking, KYC, a full guide marketplace and one-tap commercial bundling were intentionally deferred.
+
+This allowed the team to focus on demonstrating the core innovation:
+
+> **Turning personalised AI travel advice into an actionable and continuously editable trip.**
+
+---
+
+# 10. Future Vision
+
+Our long-term vision is to evolve the platform from an AI itinerary generator into a complete **AI Travel Concierge**.
+
+The future platform could connect:
+
+**Traveller Profile**
+
+↓  
+
+**AI Trip Planning**
+
+↓  
+
+**Hotels / Flights / Activities**
+
+↓  
+
+**Local Guide Matching**
+
+↓  
+
+**One-Tap Booking**
+
+↓  
+
+**Real-Time Travel Assistance**
+
+↓  
+
+**Dynamic Itinerary Adjustment**
+
+↓  
+
+**Complete Trip Management**
+
+The goal is to make travel planning less fragmented, more personalised and easier to act on.
