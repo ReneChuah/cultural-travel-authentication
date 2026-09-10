@@ -37,6 +37,8 @@ export function AiChatClient() {
                 icon: line.icon,
                 thumb: "/placeholder.svg",
                 cost: 0,
+                lat: 0,
+                lng: 0
               })),
             }
           : d,
