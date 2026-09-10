@@ -392,8 +392,6 @@ Potential future features include:
 
 # 5. User Flow
 
-![User Flow](assets/user-flow.png)
-
 ### Main Flow
 
 **Discover**
