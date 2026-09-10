@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation"
 import { ArrowLeft, Compass, Plus, Send } from "lucide-react"
 import { MessageBubble } from "./message-bubble"
 import { BottomNav } from "@/components/home/bottom-nav"
-import { initialMessages, quickReplies, replyFor, type ChatMessage } from "./data"
+import { initialMessages, quickReplies, type ChatMessage, type ItineraryCard } from "./data"
 import { useTripSelection } from "@/components/trip-selection"
-import { tripPlan } from "@/components/trip-plan/data" 
+import { tripPlan } from "@/components/trip-plan/data"
+import { loadGeneratedTripPlan, saveGeneratedTripPlan } from "@/components/generated-trip-plan"
 
 export function AiChatClient() {
   const router = useRouter()
@@ -21,6 +22,33 @@ export function AiChatClient() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
+
+  function applyItinerary(card: ItineraryCard) {
+    const current = loadGeneratedTripPlan()
+    if (current) {
+      const updatedDays = current.days.map((d, i) =>
+        i === 0
+          ? {
+              ...d,
+              activities: card.lines.map((line, idx) => ({
+                id: `applied-${idx}`,
+                time: line.time,
+                name: line.name,
+                icon: line.icon,
+                thumb: "/placeholder.svg",
+                cost: 0,
+              })),
+            }
+          : d,
+      )
+      saveGeneratedTripPlan({ ...current, days: updatedDays })
+    }
+    setMessages((prev) => [
+      ...prev,
+      { id: `sys-${Date.now()}`, role: "ai", text: "Updated! Redirecting you to your trip plan..." },
+    ])
+    setTimeout(() => router.push("/my-trip-plan"), 900)
+  }
 
   async function send(text: string) {
     const trimmed = text.trim()
@@ -44,14 +72,14 @@ export function AiChatClient() {
       if (!res.ok) throw new Error(`API returned ${res.status}`)
       const data = await res.json()
 
-      let finalReply = data.reply
+      let finalReply: string = data.reply
+      let finalItinerary: ItineraryCard | null = data.itinerary ?? null
 
       if (finalReply.startsWith("NEEDS_DATA:weather")) {
         const query = finalReply.replace("NEEDS_DATA:weather", "").trim()
         const weatherRes = await fetch(`/api/weather?location=${encodeURIComponent(query)}`)
         const weatherData = await weatherRes.json()
 
-  
         const followUp = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -63,6 +91,7 @@ export function AiChatClient() {
         })
         const followUpData = await followUp.json()
         finalReply = followUpData.reply
+        finalItinerary = followUpData.itinerary ?? null
       }
 
       if (finalReply.startsWith("NEEDS_DATA:places")) {
@@ -85,11 +114,17 @@ export function AiChatClient() {
         })
         const followUpData = await followUp.json()
         finalReply = followUpData.reply
+        finalItinerary = followUpData.itinerary ?? null
       }
 
       setMessages((prev) => [
         ...prev,
-        { id: `ai-${Date.now()}`, role: "ai", text: finalReply },
+        {
+          id: `ai-${Date.now()}`,
+          role: "ai",
+          text: finalReply,
+          itinerary: finalItinerary ?? undefined,
+        },
       ])
     } catch (err) {
       console.error(err)
@@ -132,7 +167,11 @@ export function AiChatClient() {
       <main className="flex-1 overflow-y-auto px-4 py-5">
         <div className="flex flex-col gap-5">
           {messages.map((m) => (
-            <MessageBubble key={m.id} message={m} />
+            <MessageBubble
+              key={m.id}
+              message={m}
+              onApplyItinerary={m.role === "ai" && m.itinerary ? () => applyItinerary(m.itinerary!) : undefined}
+            />
           ))}
           {sending && (
             <div className="flex items-center gap-1 text-muted-foreground text-sm">
@@ -203,3 +242,4 @@ export function AiChatClient() {
     </div>
   )
 }
+
