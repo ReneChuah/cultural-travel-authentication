@@ -151,13 +151,13 @@ Collects group composition, physical limitations, dietary needs, and preferences
 
 **03 — AI Itinerary Generation**
 
-![Generating screen screenshot](https://github.com/ReneChuah/cultural-travel-authentication/blob/5f2a72d4e947e2a705908f57ea89f12e1a223e28/AI%20generating%20screenshot.png)
+![Generating screen screenshot]()
 
 A loading state while the AI builds a structured itinerary from the survey responses.
 
 **04 — Interactive Itinerary Cards**
 
-![Itinerary cards screenshot](docs/screenshots/itinerary-cards.png](https://github.com/ReneChuah/cultural-travel-authentication/blob/240122ed5c827d6b1a7d17a3d34ab26974290af3/Interative%20intinerary%20page.png))
+![Itinerary cards screenshot]((https://github.com/ReneChuah/cultural-travel-authentication/blob/240122ed5c827d6b1a7d17a3d34ab26974290af3/Interative%20intinerary%20page.png))
 
 Day-by-day plan shown as cards with activities, costs, hotel options, and physical-difficulty notes. Swiping a card regenerates that day.
 
