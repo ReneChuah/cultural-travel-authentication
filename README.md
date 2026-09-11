@@ -261,6 +261,6 @@ Commercial and infrastructure-heavy features — a full guide marketplace, KYC, 
 
 **Trust and safety.** KYC and identity verification, verified-guide badges, ratings and reviews, and a reporting or dispute mechanism, once the platform handles real bookings between strangers.
 
-**Other improvements under consideration:** a travel checklist, currency exchange alerts, flight price tracking, real-time travel disruption notifications, and deeper booking integrations beyond the current mock flow.
+**Other improvements under consideration:** currency exchange alerts, flight price tracking, real-time travel disruption notifications, and deeper booking integrations beyond the current mock flow.
 
 Longer term, the goal is for the platform to grow from an itinerary generator into a full AI travel concierge — one that carries a traveller from profile, to AI-generated plan, to booking, to real-time assistance and adjustment during the trip itself, without the traveller needing to leave the app to manage any part of that journey.
