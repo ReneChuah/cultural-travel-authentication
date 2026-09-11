@@ -145,7 +145,7 @@ Seasonal festivals, travel packages, and destinations surfaced before the user s
 
 **02 — Personalised Survey**
 
-![Personalised survey screenshot](docs/screenshots/survey.png)
+![Personalised survey screenshot](https://github.com/ReneChuah/cultural-travel-authentication/blob/fb98534372e88901aff9a776d9a9ca227c7c6dfc/Personalize%20survey%20screenshot.png)
 
 Collects group composition, physical limitations, dietary needs, and preferences — the data that later drives AI warnings and itinerary choices.
 
