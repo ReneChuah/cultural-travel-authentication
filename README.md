@@ -151,7 +151,7 @@ Collects group composition, physical limitations, dietary needs, and preferences
 
 **03 — AI Itinerary Generation**
 
-![Generating screen screenshot]()
+![Generating screen screenshot](https://github.com/ReneChuah/cultural-travel-authentication/blob/53c56e88e8316682fcdd84f703a714a0768c0c11/AI%20generating.png)
 
 A loading state while the AI builds a structured itinerary from the survey responses.
 
