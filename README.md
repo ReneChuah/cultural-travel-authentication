@@ -139,7 +139,7 @@ flowchart TD
 
 **01 — Home Feed**
 
-![Home feed screenshot]([docs/screenshots/home-feed.png](https://github.com/ReneChuah/cultural-travel-authentication/blob/39702a5802df61a77854aae3c7665a0c2d1ecdfa/Home%20feed%20screenshot.png))
+![image alt](https://github.com/ReneChuah/cultural-travel-authentication/blob/39702a5802df61a77854aae3c7665a0c2d1ecdfa/Home%20feed%20screenshot.png)
 
 Seasonal festivals, travel packages, and destinations surfaced before the user starts planning a trip.
 
