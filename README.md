@@ -169,7 +169,7 @@ Consolidates the selected hotel, guide, and cost breakdown into one confirmation
 
 **06 — AI Travel Concierge**
 
-![AI concierge screenshot](docs/screenshots/ai-chat.png)
+![AI concierge screenshot](https://github.com/ReneChuah/cultural-travel-authentication/blob/ce9e9a22fcecce447269fdd4f6dc092c25a0b007/AI%20travel%20concierge.png)
 
 Answers trip-related questions in real time and can apply a suggested change, such as a rain-day replan, directly to the saved itinerary.
 
