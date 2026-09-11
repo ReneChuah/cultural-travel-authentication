@@ -42,7 +42,7 @@ Each of these tools solves part of the journey well, but a traveller still has t
 
 ### Our Solution
 
-[Project Name] is an AI travel concierge that begins with the traveller, not the destination. Rather than opening to a blank search bar or chat box, the app first asks a short set of questions about who is travelling, their physical capability, dietary needs, preferred pace, and budget. That profile is then used to generate a full day-by-day itinerary, shown as interactive cards rather than a block of text.
+Roamnio is an AI travel concierge that begins with the traveller, not the destination. Rather than opening to a blank search bar or chat box, the app first asks a short set of questions about who is travelling, their physical capability, dietary needs, preferred pace, and budget. That profile is then used to generate a full day-by-day itinerary, shown as interactive cards rather than a block of text.
 
 From there, users can regenerate a day they don't like, pick a hotel directly from the itinerary, and see warnings on activities that may not suit their stated limitations. During the trip, an AI concierge stays available for live questions — weather, nearby amenities, what to do if it rains — and any suggestion it makes can be applied straight back into the itinerary with one tap.
 
@@ -111,7 +111,7 @@ Features sorted by user value against implementation effort, which is what shape
 
 ## 3. Design & Prototype
 
-**UI Prototype:** [Vercel deployment link]
+**UI Prototype:** [[Vercel deployment link]](https://roamio-site.vercel.app/)
 *(Verified to open correctly in an incognito window)*
 
 ### User Flow
@@ -126,13 +126,13 @@ flowchart TD
     D -.-> G[AI Travel Concierge<br/>Weather and Nearby Places]
     G -->|Apply Replanned Day| D
 
-    style A fill:#FDE68A,stroke:#333,stroke-width:1px
-    style B fill:#A7F3D0,stroke:#333,stroke-width:1px
-    style C fill:#93C5FD,stroke:#333,stroke-width:1px
-    style D fill:#C4B5FD,stroke:#333,stroke-width:1px
-    style E fill:#FCA5A5,stroke:#333,stroke-width:1px
-    style F fill:#FDBA74,stroke:#333,stroke-width:1px
-    style G fill:#F9A8D4,stroke:#333,stroke-width:1px
+    style A fill:#FDE68A,stroke:#333,stroke-width:1px,color:#000
+    style B fill:#A7F3D0,stroke:#333,stroke-width:1px,color:#000
+    style C fill:#93C5FD,stroke:#333,stroke-width:1px,color:#000
+    style D fill:#C4B5FD,stroke:#333,stroke-width:1px,color:#000
+    style E fill:#FCA5A5,stroke:#333,stroke-width:1px,color:#000
+    style F fill:#FDBA74,stroke:#333,stroke-width:1px,color:#000
+    style G fill:#F9A8D4,stroke:#333,stroke-width:1px,color:#000
 ```
 
 ### Key Screens
@@ -224,13 +224,13 @@ graph TD
     C --> F[Google Places API<br/>Nearby Lookup]
     B --> G[(User Profiles,<br/>Trips, Itineraries)]
 
-    style A fill:#93C5FD,stroke:#333,stroke-width:1px
-    style B fill:#A7F3D0,stroke:#333,stroke-width:1px
-    style C fill:#FDE68A,stroke:#333,stroke-width:1px
-    style D fill:#C4B5FD,stroke:#333,stroke-width:1px
-    style E fill:#FCA5A5,stroke:#333,stroke-width:1px
-    style F fill:#F9A8D4,stroke:#333,stroke-width:1px
-    style G fill:#FDBA74,stroke:#333,stroke-width:1px
+    style A fill:#93C5FD,stroke:#333,stroke-width:1px,color:#000
+    style B fill:#A7F3D0,stroke:#333,stroke-width:1px,color:#000
+    style C fill:#FDE68A,stroke:#333,stroke-width:1px,color:#000
+    style D fill:#C4B5FD,stroke:#333,stroke-width:1px,color:#000
+    style E fill:#FCA5A5,stroke:#333,stroke-width:1px,color:#000
+    style F fill:#F9A8D4,stroke:#333,stroke-width:1px,color:#000
+    style G fill:#FDBA74,stroke:#333,stroke-width:1px,color:#000
 ```
 
 ### One-Tap Travel Bundle — Current Limitation
