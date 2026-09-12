@@ -97,7 +97,7 @@ Broader exploration of AI planning, concierge assistance, booking, guide matchin
 
 **Board 3 — Feature Prioritisation**
 
-![Feature prioritisation board](docs/board-priority.png)
+![Feature prioritisation board]((https://github.com/ReneChuah/cultural-travel-authentication/blob/abe7520f39c1626a513e40dada71640df4867063/Feature%20Priotisation.jpeg))
 
 Features sorted by user value against implementation effort, which is what shaped the line between the MVP and the Future Development section below.
 
