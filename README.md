@@ -85,7 +85,7 @@ From there, users can regenerate a day they don't like, pick a hotel directly fr
 
 **Board 1 — Problem and Opportunity**
 
-![Problem ideation board](docs/board-problem.png)
+![Problem ideation board](https://github.com/ReneChuah/cultural-travel-authentication/blob/0287dde98f5069901758289116bbcb6b8845092a/Problems%20and%20Opportunity.jpeg)
 
 Early brainstorming on why travel planning feels fragmented and what different traveller groups actually need from a planner.
 
