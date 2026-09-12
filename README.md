@@ -259,6 +259,15 @@ Commercial and infrastructure-heavy features — a full guide marketplace, KYC, 
 
 **Local guide marketplace.** Allow guides to register their own profiles (languages, location, expertise, tour types, availability, pricing, verification status), and match them to travellers based on destination, interests, language, group size, and budget. Concept: traveller profile and trip plan feed into a matching system, which surfaces suitable guides for a request or booking, followed by a review.
 
+**Future development.**
+Collaboration with other applications. Collab with travel applications or websites such as trip.com or Klook to commercialize their promotions.
+
+**Vlogging function.**
+Users that have visited the country can upload their vlogs on the platform, allowing for other users to view and understand beforehand how their trip will be like.
+
+**Real time view of the journey route.**
+A real time map to show the routes that the user has to take to reach a certain destination
+
 **Trust and safety.** KYC and identity verification, verified-guide badges, ratings and reviews, and a reporting or dispute mechanism, once the platform handles real bookings between strangers.
 
 **Other improvements under consideration:** currency exchange alerts, flight price tracking, real-time travel disruption notifications, and deeper booking integrations beyond the current mock flow.
