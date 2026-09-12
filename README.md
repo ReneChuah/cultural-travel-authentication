@@ -91,7 +91,7 @@ Early brainstorming on why travel planning feels fragmented and what different t
 
 **Board 2 — Feature Ideation**
 
-![Feature ideation board](docs/board-features.png)
+![Feature ideation board](https://github.com/ReneChuah/cultural-travel-authentication/blob/a8bbd8053cb3700bcc9df1fff358a8972112c097/Feature%20Ideation.jpeg)
 
 Broader exploration of AI planning, concierge assistance, booking, guide matching, and longer-term automation ideas.
 
