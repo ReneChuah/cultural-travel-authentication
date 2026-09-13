@@ -195,6 +195,7 @@ Answers trip-related questions in real time and can apply a suggested change, su
 |---|---|---|---|---|
 | Frontend/Backend | Next.js (App Router) + React + TypeScript | UI and API routes in one codebase | A unified full-stack framework suited to fast iteration under hackathon time constraints; UI scaffolded with v0 to speed up development | Requires standard build and deployment configuration |
 | Auth & Database | Supabase (Postgres + Auth) | Stores user accounts, traveller profiles, trip plans, and (in future) guide profiles | Free tier, built-in email/password auth tied directly to Postgres | Must write our own Row-Level Security policies, or users could read each other's data; free tier has storage and row limits, and the project pauses after inactivity |
+| SMS/OTP Verification (planned) | Twilio (or similar SMS gateway, e.g. Vonage) | Sends one-time verification codes to confirm phone numbers at signup | Industry-standard SMS API with good documentation and support for Malaysia (+60) numbers | Not free — requires a paid account and per-message cost; not implemented in the current prototype due to budget and time constraints, documented under Future Development |
 | AI | Gemini API via `@google/genai` SDK | Generates itineraries and powers the concierge chat | Native JSON-schema output, which is what makes card-based rendering possible without fragile text parsing | Daily request quota; occasional 503 responses under load, handled with an automatic retry-with-backoff wrapper |
 | Weather | Open-Meteo | Supplies weather data for the concierge | No API key required, generous free usage | Less detailed than some commercial weather APIs |
 | Maps/Places | Google Places API | Nearby-place lookups (e.g. "nearest toilet") | Reliable, broad place and location data | Requires a billing-enabled Google Cloud account even on the free tier, though usage under quota is free |
@@ -237,6 +238,21 @@ graph TD
 
 A genuine one-tap bundle (hotel, flight, transport, and activities booked together) would need integration with external commercial travel APIs. Most of these require paid access or a formal partnership, which is not realistic within a hackathon budget. The current prototype demonstrates the booking flow with mock data instead of processing real transactions.
 
+**Phone-number verification at signup.** 
+OTP-based verification toconfirm identity and prevent malicious/spam registrations that could
+overload the server. Planned UX details:
+  - The OTP field sits below the main signup fields, so users fill in
+    their profile information first before verification.
+  - A country/region code selector defaults to **+60** given the primary
+    Malaysia market, with the option to switch for international users
+    (who may alternatively verify via email instead of phone).
+  - Each phone number can only be used to register once.
+  - Tapping "Send Code" triggers a 60-second cooldown on the button
+    (e.g. "Resend in 59s") to prevent repeated/duplicate API calls to
+    the SMS provider.
+  - Google / Apple SSO remains available at the top of the signup screen
+    as a faster alternative for users who prefer not to receive an OTP.
+
 ### Local Guide Matching — What It Would Require
 
 The current build uses seeded mock guide profiles to show the matching interaction. A real, peer-to-peer version would need guide-side registration and authentication, a guide profiles table (languages, location, expertise, availability, pricing), a matching query against traveller requirements, identity verification, and a way to handle payouts — all of which is scoped to Future Development rather than the MVP.
@@ -259,7 +275,7 @@ Commercial and infrastructure-heavy features — a full guide marketplace, KYC, 
 
 **Local guide marketplace.** Allow guides to register their own profiles (languages, location, expertise, tour types, availability, pricing, verification status), and match them to travellers based on destination, interests, language, group size, and budget. Concept: traveller profile and trip plan feed into a matching system, which surfaces suitable guides for a request or booking, followed by a review.
 
-**Future development.**
+**Collaboration with other applications.**
 Collaboration with other applications. Collab with travel applications or websites such as trip.com or Klook to commercialize their promotions.
 
 **Vlogging function.**
