@@ -240,21 +240,6 @@ graph TD
 
 A genuine one-tap bundle (hotel, flight, transport, and activities booked together) would need integration with external commercial travel APIs. Most of these require paid access or a formal partnership, which is not realistic within a hackathon budget. The current prototype demonstrates the booking flow with mock data instead of processing real transactions.
 
-**Phone-number verification at signup.** 
-OTP-based verification toconfirm identity and prevent malicious/spam registrations that could
-overload the server. Planned UX details:
-  - The OTP field sits below the main signup fields, so users fill in
-    their profile information first before verification.
-  - A country/region code selector defaults to **+60** given the primary
-    Malaysia market, with the option to switch for international users
-    (who may alternatively verify via email instead of phone).
-  - Each phone number can only be used to register once.
-  - Tapping "Send Code" triggers a 60-second cooldown on the button
-    (e.g. "Resend in 59s") to prevent repeated/duplicate API calls to
-    the SMS provider.
-  - Google / Apple SSO remains available at the top of the signup screen
-    as a faster alternative for users who prefer not to receive an OTP.
-
 ### Local Guide Matching — What It Would Require
 
 The current build uses seeded mock guide profiles to show the matching interaction. A real, peer-to-peer version would need guide-side registration and authentication, a guide profiles table (languages, location, expertise, availability, pricing), a matching query against traveller requirements, identity verification, and a way to handle payouts — all of which is scoped to Future Development rather than the MVP.
@@ -269,25 +254,45 @@ Commercial and infrastructure-heavy features — a full guide marketplace, KYC, 
 
 ## 6. Future Development
 
-**Smart time management.** Estimate travel time between hotels and destinations, account for different transport methods and traffic conditions, detect scheduling conflicts, warn users when a day is packed too tightly, and send departure and flight-boarding reminders.
+**Smart time management.** 
 
-**Dynamic itinerary adjustment.** Automatically adjust the plan when weather changes, a flight is delayed, an attraction becomes unavailable, or two activities end up conflicting.
+Estimate travel time between hotels and destinations, account for different transport methods and traffic conditions, detect scheduling conflicts, warn users when a day is packed too tightly, and send departure and flight-boarding reminders.
 
-**One-tap travel bundle.** Let users purchase a full bundle — hotel, flights, transport, activities, and a local guide — directly from the generated itinerary, once budget allows access to the commercial APIs this depends on.
+**Dynamic itinerary adjustment.** 
 
-**Local guide marketplace.** Allow guides to register their own profiles (languages, location, expertise, tour types, availability, pricing, verification status), and match them to travellers based on destination, interests, language, group size, and budget. Concept: traveller profile and trip plan feed into a matching system, which surfaces suitable guides for a request or booking, followed by a review.
+Automatically adjust the plan when weather changes, a flight is delayed, an attraction becomes unavailable, or two activities end up conflicting.
+
+**One-tap travel bundle.** 
+
+Let users purchase a full bundle — hotel, flights, transport, activities, and a local guide — directly from the generated itinerary, once budget allows access to the commercial APIs this depends on.
+
+**Local guide marketplace.** 
+
+Allow guides to register their own profiles (languages, location, expertise, tour types, availability, pricing, verification status), and match them to travellers based on destination, interests, language, group size, and budget. Concept: traveller profile and trip plan feed into a matching system, which surfaces suitable guides for a request or booking, followed by a review.
+
+**Phone-number verification at signup.** 
+
+OTP-based verification toconfirm identity and prevent malicious/spam registrations that could
+overload the server. 
 
 **Collaboration with other applications.**
+
 Collab with travel applications or websites such as trip.com or Klook to commercialize their promotions.
 
 **Vlogging function.**
+
 Users that have visited the country can upload their vlogs on the platform, allowing for other users to view and understand beforehand how their trip will be like.
 
 **Real time view of the journey route.**
+
 A real time map to show the routes that the user has to take to reach a certain destination
 
-**Trust and safety.** KYC and identity verification, verified-guide badges, ratings and reviews, and a reporting or dispute mechanism, once the platform handles real bookings between strangers.
+**Trust and safety.** 
 
-**Other improvements under consideration:** currency exchange alerts, flight price tracking, real-time travel disruption notifications, and deeper booking integrations beyond the current mock flow.
+KYC and identity verification, verified-guide badges, ratings and reviews, and a reporting or dispute mechanism, once the platform handles real bookings between strangers.
+
+**Other improvements under consideration:** 
+
+currency exchange alerts, flight price tracking, real-time travel disruption notifications, and deeper booking integrations beyond the current mock flow.
 
 Longer term, the goal is for the platform to grow from an itinerary generator into a full AI travel concierge — one that carries a traveller from profile, to AI-generated plan, to booking, to real-time assistance and adjustment during the trip itself, without the traveller needing to leave the app to manage any part of that journey.
