@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Compass, Eye, EyeOff, Mail, Lock, User, Ticket } from "lucide-react"
+import { Compass, Eye, EyeOff, Mail, Lock, User, Ticket, Phone, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Tab = "signup" | "login"
@@ -14,11 +14,32 @@ const genderOptions: { value: Gender; label: string }[] = [
   { value: "unspecified", label: "Prefer not to say" },
 ]
 
+const countryCodes = ["+60", "+65", "+62", "+66", "+63", "+84", "+1", "+44", "+61", "+91", "+86", "+81"]
+
 export function AuthCard() {
   const router = useRouter()
   const [tab, setTab] = useState<Tab>("signup")
   const [showPassword, setShowPassword] = useState(false)
   const [gender, setGender] = useState<Gender>("unspecified")
+
+  const [countryCode, setCountryCode] = useState("+60")
+  const [phone, setPhone] = useState("")
+  const [otpSent, setOtpSent] = useState(false)
+  const [otpCode, setOtpCode] = useState("")
+  const [countdown, setCountdown] = useState(0)
+
+  const otpVerified = otpCode.length === 6
+
+  useEffect(() => {
+    if (countdown <= 0) return
+    const timer = setTimeout(() => setCountdown((c) => c - 1), 1000)
+    return () => clearTimeout(timer)
+  }, [countdown])
+
+  const handleSendCode = () => {
+    setOtpSent(true)
+    setCountdown(59)
+  }
 
   return (
     <div className="w-full max-w-md">
@@ -118,6 +139,89 @@ export function AuthCard() {
                 ))}
               </div>
             </fieldset>
+
+            <div className="flex flex-col gap-2">
+              <label htmlFor="signup-phone" className="text-sm font-medium text-foreground">
+                Phone number
+              </label>
+              <div className="flex gap-2">
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <select
+                    aria-label="Country code"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="h-full appearance-none rounded-2xl border border-input bg-background py-3 pl-9 pr-8 text-base text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/25"
+                  >
+                    {countryCodes.map((code) => (
+                      <option key={code} value={code}>
+                        {code}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+                <input
+                  id="signup-phone"
+                  type="tel"
+                  inputMode="numeric"
+                  autoComplete="tel-national"
+                  placeholder="12 345 6789"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/[^\d\s]/g, ""))}
+                  className="w-full rounded-2xl border border-input bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/25"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={handleSendCode}
+                disabled={countdown > 0}
+                className={cn(
+                  "w-full rounded-full border border-primary py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent",
+                )}
+              >
+                {countdown > 0 ? `Resend in ${countdown}s` : otpSent ? "Resend Code" : "Send Code"}
+              </button>
+
+              {otpSent && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="signup-otp" className="text-sm font-medium text-foreground">
+                    Verification code
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="signup-otp"
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      maxLength={6}
+                      placeholder="Enter 6-digit code"
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      className={cn(
+                        "w-full rounded-2xl border bg-background py-3 pl-4 pr-28 text-base tracking-[0.3em] text-foreground placeholder:tracking-normal placeholder:text-muted-foreground/70 outline-none transition-colors focus:ring-2 focus:ring-primary/25",
+                        otpVerified ? "border-green-600 focus:border-green-600" : "border-input focus:border-primary",
+                      )}
+                    />
+                    {otpVerified && (
+                      <span className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-1.5 text-sm font-semibold text-green-600">
+                        <Check className="h-4 w-4" aria-hidden="true" />
+                        Verified
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div className="flex flex-col gap-1.5">
               <label htmlFor="signup-referral" className="text-xs font-medium text-muted-foreground">
