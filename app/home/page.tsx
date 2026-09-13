@@ -14,6 +14,16 @@ export default function HomePage() {
 
       <SearchBar />
 
+      <div className="mx-auto mt-3 max-w-lg px-5">
+        <Link
+          href="/festivals-calendar"
+          className="inline-flex items-center gap-2 rounded-full border border-primary bg-primary/5 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+        >
+          <CalendarDays className="h-4 w-4" aria-hidden="true" />
+          Explore festivals by month
+        </Link>
+      </div>
+
       <BannerCarousel />
 
       <main className="mx-auto max-w-lg px-5 pb-28 pt-5">
@@ -31,14 +41,6 @@ export default function HomePage() {
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}
         </div>
-
-        <Link
-          href="/festivals-calendar"
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-primary px-5 py-4 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
-        >
-          <CalendarDays className="h-5 w-5" aria-hidden="true" />
-          Explore festivals by month
-        </Link>
       </main>
 
       <BottomNav active="home" showFab />
