@@ -269,7 +269,7 @@ Allow guides to register their own profiles (languages, location, expertise, tou
 
 **Phone-number verification at signup.** 
 
-OTP-based verification toconfirm identity and prevent malicious/spam registrations that could
+OTP-based verification to confirm identity and prevent malicious/spam registrations that could
 overload the server. 
 
 **Collaboration with other applications.**
