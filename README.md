@@ -104,11 +104,7 @@ Features sorted by user value against implementation effort, which is what shape
 
 | Date | Mentor Feedback Received | What Was Changed |
 |---|---|---|
-| 13/9/2026 | Noted that our problem statement specifies syncing preferences across a group, and recommended 
-
-(1) allowing users to edit or regenerate part of an itinerary rather than only the full day, and 
-
-(2) making the visual design more distinctive | For group syncing: reframed our Solution section to make explicit that each traveller's needs (children, adults, elderly — physical limitations and dietary restrictions) are captured together within a single shared trip profile, with full real-time multi-device group syncing scoped into Future Development given the engineering effort required within the remaining time. For itinerary editing: prioritised stabilising the existing day-level AI regeneration given time constraints; finer-grained per-activity regeneration is noted as a near-term improvement. For visual design: agreed further refinement would help, but chose to prioritise functional stability over visual polish for the remaining build time |
+| 13/9/2026 | Noted that our problem statement specifies syncing preferences across a group, and recommended (1) allowing users to edit or regenerate part of an itinerary rather than only the full day, and (2) making the visual design more distinctive | For group syncing: reframed our Solution section to make explicit that each traveller's needs (children, adults, elderly — physical limitations and dietary restrictions) are captured together within a single shared trip profile, with full real-time multi-device group syncing scoped into Future Development given the engineering effort required within the remaining time. For itinerary editing: prioritised stabilising the existing day-level AI regeneration given time constraints; finer-grained per-activity regeneration is noted as a near-term improvement. For visual design: agreed further refinement would help, but chose to prioritise functional stability over visual polish for the remaining build time |
 
 ---
 
