@@ -4,7 +4,7 @@
 
 **Problem Statement:** Travel Planner
 
-**Video Presentation:** [Unlisted YouTube Link]
+**Video Presentation:** [Unlisted YouTube Link](https://youtu.be/_VLI6iHOHnI?si=5iZ9TGeMD9Cc1VJL)
 
 ---
 
@@ -104,7 +104,7 @@ Features sorted by user value against implementation effort, which is what shape
 
 | Date | Mentor Feedback Received | What Was Changed |
 |---|---|---|
-| 13/9/2026 | Noted that our problem statement specifies syncing preferences across a group, and recommended (1) allowing users to edit or regenerate part of an itinerary rather than only the full day, and (2) making the visual design more distinctive | For group syncing: reframed our Solution section to make explicit that each traveller's needs (children, adults, elderly — physical limitations and dietary restrictions) are captured together within a single shared trip profile, with full real-time multi-device group syncing scoped into Future Development given the engineering effort required within the remaining time. For itinerary editing: prioritised stabilising the existing day-level AI regeneration given time constraints; finer-grained per-activity regeneration is noted as a near-term improvement. For visual design: agreed further refinement would help, but chose to prioritise functional stability over visual polish for the remaining build time |
+| 13/9/2026 | Noted that our problem statement specifies syncing preferences across a group, and **recommended allowing users to edit or regenerate part of an itinerary rather than only the full day**, and **making the visual design more distinctive** | **For group syncing:** group syncing is reframed around a single shared trip profile capturing all travellers’ needs (children, adults, elderly, physical limitations, dietary restrictions), while real-time multi-device syncing is deferred to Future Development. **For itinerary editing:** focus on estabilising existing day-level AI regeneration, with per-activity regeneration noted as a near-term improvement. **For visual design:** agreed further refinement would help, but chose to prioritise functional stability over visual polish for the remaining build time |
 
 ---
 
@@ -177,6 +177,8 @@ Answers trip-related questions in real time and can apply a suggested change, su
 ## 4. What Makes It Different
 
 **Conversational profiling instead of static forms.** Most platforms either skip profiling entirely or hand the user a long form. We collect the same information through a short, conversational flow that feels closer to talking to a concierge than filling in a questionnaire.
+
+**All-in-one travel planning.** Provides features such as promotions and direct booking that currently exists in different travelling sites, combining strengths of different applications together and adding on functions that are currently lacking so that users do not have to go through the hassle of switching between sites in order to plan their travels.
 
 **Structured, actionable output instead of plain-text advice.** A generic AI assistant stops at a paragraph of suggestions. Ours returns structured data that becomes something the user can interact with directly — select a hotel, apply a replanned day — rather than something they have to read and re-enter elsewhere.
 
@@ -288,7 +290,9 @@ A real time map to show the routes that the user has to take to reach a certain 
 
 KYC and identity verification, verified-guide badges, ratings and reviews, and a reporting or dispute mechanism, once the platform handles real bookings between strangers.
 
-- **Real-time collaborative group planning.** Allow each group member to join a shared trip from their own device and independently update their own preferences (dietary needs, pace, budget contribution), with changes syncing live for everyone in the group — building on the current single-profile group capture, which lets one person set up the whole group's needs in one sitting.
+**Real-time collaborative group planning.** 
+
+Allow each group member to join a shared trip from their own device and independently update their own preferences (dietary needs, pace, budget contribution), with changes syncing live for everyone in the group — building on the current single-profile group capture, which lets one person set up the whole group's needs in one sitting.
 
 **Other improvements under consideration:** 
 
