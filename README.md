@@ -276,7 +276,7 @@ Commercial and infrastructure-heavy features — a full guide marketplace, KYC, 
 **Local guide marketplace.** Allow guides to register their own profiles (languages, location, expertise, tour types, availability, pricing, verification status), and match them to travellers based on destination, interests, language, group size, and budget. Concept: traveller profile and trip plan feed into a matching system, which surfaces suitable guides for a request or booking, followed by a review.
 
 **Collaboration with other applications.**
-Collaboration with other applications. Collab with travel applications or websites such as trip.com or Klook to commercialize their promotions.
+Collab with travel applications or websites such as trip.com or Klook to commercialize their promotions.
 
 **Vlogging function.**
 Users that have visited the country can upload their vlogs on the platform, allowing for other users to view and understand beforehand how their trip will be like.
