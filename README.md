@@ -51,15 +51,12 @@ During the trip itself, an AI concierge stays available for live questions — w
 **Core User Journey:** Discover → Personalise → AI Generate → Customise → Book → Travel → AI Assist
 
 **Core feature set:**
-- Multi-dimensional traveller profiling — physical capability, dietary restrictions, pace, budget, and group composition (children, adults, elderly)
-- AI-generated structured itineraries covering day-by-day activities, hotel options, cost estimates, and physical-difficulty notes
-- Interactive itinerary cards that can be regenerated per day rather than edited manually
-- Physical-difficulty warnings tailored to what the user has actually stated about their group
-- A real-time AI concierge that uses trip context alongside live weather and nearby-place data
-- The ability to apply an AI suggestion directly to the saved itinerary, not just read it
-- A mock end-to-end booking flow — hotel selection, summary, confirmation
-- Expense tracking for recording actual spend against the trip
-- A discovery feed for seasonal destinations, cultural festivals, and travel packages
+* Multi-dimensional traveller profiling — physical capability, dietary restrictions, pace, budget, and group composition (children, adults, elderly)
+* AI-generated structured itineraries with day-by-day activities, hotel options, cost estimates, and physical-difficulty warnings tailored to the group's stated limitations
+* Interactive itinerary cards that can be regenerated per day rather than manually edited
+* A real-time AI concierge using trip context alongside live weather and nearby-place data, able to apply suggestions directly back into the saved itinerary
+* A mock end-to-end booking flow — hotel selection, summary, confirmation
+* Expense tracking against the trip budget, plus a discovery feed for seasonal destinations and cultural festivals
 
 ---
 
